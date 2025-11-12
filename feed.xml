@@ -5,8 +5,8 @@
     <description>I like to be leisurely and carefree</description>
     <link>http://p0m1se.club//</link>
     <atom:link href="http://p0m1se.club//feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 12 Nov 2025 00:20:26 +0000</pubDate>
-    <lastBuildDate>Wed, 12 Nov 2025 00:20:26 +0000</lastBuildDate>
+    <pubDate>Wed, 12 Nov 2025 10:44:34 +0000</pubDate>
+    <lastBuildDate>Wed, 12 Nov 2025 10:44:34 +0000</lastBuildDate>
     <generator>Jekyll v4.4.1</generator>
     
       <item>
@@ -23,23 +23,26 @@
 
 &lt;p&gt;&lt;img src=&quot;/asset/image-20251112052457539.png&quot; alt=&quot;image-20251112052457539&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;一般由显卡驱动以及内存所导致，可以先尝试关闭MPO,&lt;a href=&quot;/asset/mpo_disable.reg&quot;&gt;关闭工具&lt;/a&gt;,&lt;a href=&quot;/asset/mpo_restore.reg&quot;&gt;恢复工具&lt;/a&gt;，使用Amd提供的驱动清理工具重装显卡驱动或者降级 &lt;a href=&quot;https://www.amd.com/en/resources/support-articles/faqs/GPU-601.html&quot;&gt;CleanUtils&lt;/a&gt;，如尝试重装驱动或驱动降级后还是出现驱动超时，检查内存兼容性，或者关闭内存超频，或者关闭xmp。&lt;/p&gt;
+&lt;p&gt;一般由显卡驱动以及内存所导致，可以先尝试关闭MPO，使用Amd提供的驱动清理工具或DDU重装显卡驱动或者降级，尝试重装驱动或驱动降级后还是出现驱动超时，检查内存兼容性，或者关闭内存超频，或者关闭xmp。&lt;/p&gt;
 
 &lt;h2 id=&quot;gpu崩溃&quot;&gt;GPU崩溃&lt;/h2&gt;
 
-&lt;p&gt;表现为游戏玩到一半电脑屏幕突然卡死，音频卡在最后的1s反复播放，3秒后自动重启。多数由ULPS引起，请参考该文章关闭ULPS &lt;a href=&quot;https://www.bilibili.com/opus/785787799123001362&quot;&gt;BiliBili&lt;/a&gt;或使用&lt;a href=&quot;/asset/ulps_disable.reg&quot;&gt;脚本&lt;/a&gt;一键关闭，重启生效&lt;/p&gt;
+&lt;p&gt;表现为游戏玩到一半电脑屏幕突然卡死，音频卡在最后的1s反复播放，3秒后自动重启。多数由ULPS引起，请参考该文章关闭ULPS或使用工具一键关闭，重启生效。&lt;/p&gt;
 
 &lt;h2 id=&quot;真-掉驱动&quot;&gt;真 掉驱动&lt;/h2&gt;
 
-&lt;p&gt;表现为GPU崩溃后重启电脑显卡驱动消失，设备管理器显示设备代码31。排除独显供电线，金手指没插进意外，多次出现及时售后，引起这个情况的原因很多。&lt;/p&gt;
+&lt;p&gt;表现为GPU崩溃后重启电脑显卡驱动消失，设备管理器显示设备代码31。排除独显供电线，金手指没插紧以外，多次出现建议售后，引起这个情况的原因很多。&lt;/p&gt;
 
 &lt;h2 id=&quot;题外话&quot;&gt;题外话&lt;/h2&gt;
 &lt;p&gt;关于AMD显卡驱动超时的问题，其实不一定是显卡驱动的问题，AMD的逻辑是这个软件在独显上渲染，出现崩溃了之后他就会认为驱动异常，于是提醒你驱动超时。其实不一定是显卡的问题，可能是其他原因，包括游戏本身的异常崩溃也会弹出来。频率不高不需要太担心。&lt;/p&gt;
 
 &lt;h2 id=&quot;工具集合&quot;&gt;工具集合&lt;/h2&gt;
-&lt;p&gt;MPO &lt;a href=&quot;/asset/mpo_disable.reg&quot;&gt;禁用&lt;/a&gt; &lt;a href=&quot;/asset/mpo_restore.reg&quot;&gt;恢复&lt;/a&gt;
-ULPS &lt;a href=&quot;/asset/ulps_disable.reg&quot;&gt;禁用&lt;/a&gt; &lt;a href=&quot;https://www.bilibili.com/opus/785787799123001362&quot;&gt;原教程&lt;/a&gt;
-Amd显卡驱动清理地址 &lt;a href=&quot;https://www.amd.com/en/resources/support-articles/faqs/GPU-601.html&quot;&gt;CleanUtils&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;MPO &lt;a href=&quot;/asset/mpo_disable.reg&quot;&gt;禁用&lt;/a&gt; &lt;a href=&quot;/asset/mpo_restore.reg&quot;&gt;恢复&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;ULPS &lt;a href=&quot;/asset/ulps_disable.reg&quot;&gt;禁用&lt;/a&gt; &lt;a href=&quot;https://www.bilibili.com/opus/785787799123001362&quot;&gt;原教程&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Amd显卡驱动清理工具&lt;a href=&quot;/asset/amdcleanuputility.exe&quot;&gt;下载&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;DDU&lt;a href=&quot;https://www.wagnardsoft.com/DDU/download/DDU%20v18.1.3.8.exe&quot;&gt;下载&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 </description>
         <pubDate>Wed, 12 Nov 2025 00:00:00 +0000</pubDate>
         <link>http://p0m1se.club//2025/11/12/AMD%E6%98%BE%E5%8D%A1%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</link>
@@ -63,8 +66,13 @@ Amd显卡驱动清理地址 &lt;a href=&quot;https://www.amd.com/en/resources/su
       <item>
         <title>OBS即时回放</title>
         <description>&lt;h1 id=&quot;obs设置开机自启动即时回放&quot;&gt;Obs设置开机自启动即时回放&lt;/h1&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;由于OBS 32.0更新移除了 &lt;strong&gt;–disable-shutdown-check&lt;/strong&gt; 启动参数，这个教程只适合32.0以前的版本。&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;p&gt;测试啊实打实的发实打实大撒大撒&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;需要事先设置好OBS的基础设置，录制参数之类的&lt;/p&gt;
+&lt;/blockquote&gt;
 </description>
         <pubDate>Tue, 11 Nov 2025 00:00:00 +0000</pubDate>
         <link>http://p0m1se.club//2025/11/11/OBS%E5%8D%B3%E6%97%B6%E5%9B%9E%E6%94%BE%E8%AE%BE%E7%BD%AE/</link>
