@@ -83,3 +83,31 @@
         __HuxNav__.close();
     })
 </script>
+<button id="theme-toggle" aria-label="切换主题" style="position:fixed;right:16px;bottom:16px;z-index:1000;width:48px;height:48px;border-radius:50%;border:none;background:#0085A1;color:#fff;box-shadow:0 2px 8px rgba(0,0,0,.2);font-size:20px;line-height:48px;text-align:center;cursor:pointer">🌙</button>
+<script>
+    var themeKey = 'theme';
+    var btn = document.getElementById('theme-toggle');
+    function applyTheme(t){
+        var html = document.documentElement;
+        html.classList.remove('theme-dark');
+        html.classList.remove('theme-light');
+        if(t === 'dark') html.classList.add('theme-dark');
+        if(t === 'light') html.classList.add('theme-light');
+        btn.textContent = t === 'dark' ? '☀️' : '🌙';
+    }
+    var saved = localStorage.getItem(themeKey);
+    if(saved){
+        applyTheme(saved);
+    }else{
+        var sysDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        applyTheme(sysDark ? 'dark' : 'light');
+    }
+    btn.addEventListener('click', function(){
+        var isDark = document.documentElement.classList.contains('theme-dark');
+        var isLight = document.documentElement.classList.contains('theme-light');
+        var current = isDark ? 'dark' : (isLight ? 'light' : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+        var next = current === 'dark' ? 'light' : 'dark';
+        localStorage.setItem(themeKey, next);
+        applyTheme(next);
+    });
+</script>
