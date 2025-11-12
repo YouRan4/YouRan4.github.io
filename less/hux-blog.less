@@ -9,7 +9,7 @@ body {
 	.sans-serif;
 	font-size: 16px;
 	// Hux mpdify to 16px (Mobile First), and increase to 20px while 768+ width
-	color: @gray-dark;
+	color: @theme-text;
 	//-webkit-user-select:text; //对于 Blog 还是先不开启这句。
 	overflow-x : hidden;
 }
@@ -38,10 +38,10 @@ h4{
     font-size: 21px;
 }
 a {
-	color: @gray-dark;
+	color: @theme-text;
 	&:hover,
 	&:focus {
-		color: @brand-primary;
+		color: @theme-link-hover;
 	}
 }
 
@@ -56,7 +56,7 @@ article{
 	overflow-x : hidden;
 }
 blockquote {
-	color: @gray;
+	color: @theme-post-meta;
 	font-style: italic;
 	font-size: 0.95em;
 	margin: 20px 0 20px;
@@ -83,10 +83,10 @@ img.shadow{
 select{
 	-webkit-appearance:none;
 	margin-top:15px;
-	color:#337ab7;
-	border-color:#337ab7;
+	color: @theme-post-link;
+	border-color: @theme-post-link;
 	padding: 0em 0.4em;
-	background: white;
+	background: @theme-pager-bg;
 	&.sel-lang{
 		min-height: 28px;
 		font-size:14px;
@@ -96,14 +96,14 @@ select{
 
 // override table style in bootstrap
 .table th, .table td{
-	border: 1px solid #eee !important;
+	border: 1px solid @theme-table-border !important;
 }
 
 hr.small {
 	max-width: 100px;
 	margin: 15px auto;
 	border-width: 4px;
-	border-color: white;
+	border-color: @theme-pager-border;
 }
 // add by Hux
 pre,.table-responsive{
@@ -125,11 +125,11 @@ pre code{
 // In the post.
 .post-container{
 	a{
-		color:#337ab7;
+		color: @theme-post-link;
 		// different to @brand-primary
 		&:hover,
 		&:focus {
-			color: @brand-primary;
+			color: @theme-link-hover;
 		}
 	}
 	h1,
@@ -143,7 +143,7 @@ pre code{
 	h5{
 		font-size: 19px;
 		font-weight: 600;
-		color:gray;
+		color: @theme-sidebar-h5;
 		& + p{
 			margin-top: 5px;
 		}
@@ -190,7 +190,7 @@ pre code{
 		> a {
 			width: 100%;
 			> span{
-				color: @gray;
+				color: @theme-post-meta;
 				font-weight: normal;
 				letter-spacing: 0.5px;
 			}
@@ -213,8 +213,7 @@ pre code{
 		position: absolute; 
      	right: 0;
 		border: none;
-		background: white;
-		box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.2);
+		box-shadow: @theme-nav-collapse-shadow;
 		box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.239216) 0px 1px 4px;
 		border-radius: 2px;
 		width: 170px;
@@ -290,11 +289,11 @@ pre code{
 	.navbar-brand {
 		font-weight: 800;
 		// materialize
-		color: white;
+		color: @theme-nav-fixed-brand;
 		height: 56px;
 		line-height: 25px;
 		&:hover{
-			color: rgba(255, 255, 255, 0.8);
+			color: @theme-nav-fixed-link-hover;
 		}
 	}
 	.nav {
@@ -307,7 +306,7 @@ pre code{
 				letter-spacing: 1px;
 				// only highlight in mobile
 				&:active{
-					background: rgba(0,0,0,0.12)
+					background: @theme-nav-collapse-bg;
 				}
 			}
 		}
@@ -319,22 +318,22 @@ pre code{
 		background: transparent;
 		border-bottom: 1px solid transparent;
 		.navbar-brand {
-			color: white;
+			color: @theme-nav-fixed-brand;
 			padding: 20px;
 			line-height: 20px;
 			&:hover,
 			&:focus {
-				color: @white-faded;
+				color: @theme-nav-fixed-link-hover;
 			}
 		}
 		.nav {
 			li {
 				a {
-					color: white;
+					color: @theme-nav-fixed-brand;
 					padding: 20px;
 					&:hover,
 					&:focus {
-						color: @white-faded;
+						color: @theme-nav-fixed-link-hover;
 					}
 					&:active{
 						background: none;
@@ -359,25 +358,25 @@ pre code{
 			/* when the user scrolls down, we hide the header right above the viewport */
 			position: fixed;
 			top: -61px;
-			background-color: fade(white, 90%);
-			border-bottom: 1px solid darken(white, 5%);
+			background-color: @theme-nav-fixed-bg;
+			border-bottom: 1px solid @theme-nav-fixed-border;
 			-webkit-transition: -webkit-transform 0.3s;
 			-moz-transition: -moz-transform 0.3s;
 			transition: transform 0.3s;
 			.navbar-brand {
-				color: @gray-dark;
+				color: @theme-text;
 				&:hover,
 				&:focus {
-					color: @brand-primary;
+					color: @theme-link-hover;
 				}
 			}
 			.nav {
 				li {
 					a {
-						color: @gray-dark;
+						color: @theme-text;
 						&:hover,
 						&:focus {
-							color: @brand-primary;
+							color: @theme-link-hover;
 						}
 					}
 				}
@@ -400,7 +399,7 @@ pre code{
 
 .intro-header {
 	background: no-repeat center center;
-	background-color: @gray;
+	background-color: @theme-post-meta;
 	background-attachment: scroll;
 	.background-cover;
 	// NOTE: Background images are set within the HTML using inline CSS!
@@ -419,7 +418,7 @@ pre code{
 			0 4px 10px rgba(0, 0, 0, 0.4),    /* 柔和扩散 */
 			0 8px 20px rgba(0, 0, 0, 0.3);    /* 更远更淡 */
 		padding: 85px 0 55px;
-		color: white;
+		color: @theme-nav-fixed-brand;
 		@media only screen and (min-width: 768px) {
 			padding: 150px 0;
 		}
@@ -476,7 +475,7 @@ pre code{
 			font-weight: 300;
 			font-size: 18px;
 			a {
-				color: white;
+				color: @theme-nav-fixed-brand;
 			}
 		}
 		@media only screen and (min-width: 768px) {
@@ -497,11 +496,11 @@ pre code{
 
 .post-preview {
 	> a {
-		color: @gray-dark;
+		color: @theme-text;
 		&:hover,
 		&:focus {
 			text-decoration: none;
-			color: @brand-primary;
+			color: @theme-link-hover;
 		}
 		> .post-title {
 			font-size: 21px;
@@ -519,16 +518,16 @@ pre code{
 	}
 	> .post-meta {
 		.serif;
-		color: @gray;
+		color: @theme-post-meta;
 		font-size: 16px;
 		font-style: italic;
 		margin-top: 0;
 		> a {
 			text-decoration: none;
-			color: @gray-dark;
+			color: @theme-text;
 			&:hover,
 			&:focus {
-				color: @brand-primary;
+				color: @theme-link-hover;
 				text-decoration: underline;
 			}
 		}
@@ -556,7 +555,7 @@ pre code{
     font-style: italic;
     color:#a3a3a3;
     &:hover{
-        color: @brand-primary;
+        color: @theme-link-hover;
     }
     @media only screen and (min-width: 768px) {
         font-size:14px;
@@ -594,11 +593,11 @@ footer {
 		text-align: center;
 		margin-bottom: 0;
 		a{
-			color:#337ab7;
+			color: @theme-post-link;
 			// different to @brand-primary
 			&:hover,
 			&:focus {
-				color: @brand-primary;
+				color: @theme-link-hover;
 			}
 		}
 	}
@@ -656,7 +655,7 @@ footer {
 
 .floating-label-form-group-with-focus {
 	label {
-		color: @brand-primary;
+		color: @theme-link-hover;
 	}
 }
 
@@ -684,9 +683,9 @@ form .row:first-child .floating-label-form-group {
 .btn-default {
 	&:hover,
 	&:focus {
-		background-color: @brand-primary;
+		background-color: @theme-link-hover;
 		border: 1px solid @brand-primary;
-		color: white;
+		color: @theme-nav-fixed-brand;
 	}
 }
 
@@ -705,7 +704,7 @@ form .row:first-child .floating-label-form-group {
 			font-weight: 800;
 			letter-spacing: 1px;
 			padding: 10px;
-			background-color: white;
+			background-color: @theme-nav-fixed-brand;
 			border-radius: 0;
 			@media only screen and (min-width: 768px) {
 				font-size: 14px;
@@ -714,17 +713,17 @@ form .row:first-child .floating-label-form-group {
 		}
 
 		> a {
-			color: @gray-dark;
+			color: @theme-text;
 		}
 		> a:hover,
 		> a:focus {
-			color: white;
-			background-color: @brand-primary;
+			color: @theme-nav-fixed-brand;
+			background-color: @theme-link-hover;
 			border: 1px solid @brand-primary;
 
 			// V1.6 display title
 			> span{
-				color: white;
+				color: @theme-nav-fixed-brand;
 			}
 		}
 	}
@@ -734,8 +733,8 @@ form .row:first-child .floating-label-form-group {
 		> a:hover,
 		> a:focus,
 		> span {
-			color: @gray;
-			background-color: @gray-dark;
+			color: @theme-post-meta;
+			background-color: @theme-text;
 			cursor: not-allowed;
 		}
 	}
@@ -744,24 +743,24 @@ form .row:first-child .floating-label-form-group {
 // -- Highlight Color Customization
 
 ::-moz-selection {
-	color: white;
+	color: @theme-nav-fixed-brand;
 	text-shadow: none;
 	background: @brand-primary;
 }
 
 ::selection {
-	color: white;
+	color: @theme-nav-fixed-brand;
 	text-shadow: none;
 	background: @brand-primary;
 }
 
 img::selection {
-	color: white;
+	color: @theme-nav-fixed-brand;
 	background: transparent;
 }
 
 img::-moz-selection {
-	color: white;
+	color: @theme-nav-fixed-brand;
 	background: transparent;
 }
 
@@ -782,7 +781,7 @@ img::-moz-selection {
 		margin-bottom: 6px;
 		&:hover, &:active{
 			color:white;
-			border-color: white;
+			border-color: @theme-pager-border;
 			background-color: rgba(255,255,255,0.4);
 			text-decoration: none;
 
@@ -925,7 +924,7 @@ img::-moz-selection {
 		width: 18px;
 		border-radius: 0px;
 		// materialize
-		background-color: white;
+		background-color: @theme-nav-fixed-brand;
 	}
 	.icon-bar+.icon-bar{
 		margin-top: 3px;
@@ -941,7 +940,7 @@ img::-moz-selection {
 			a.ds-like-thread-button{
 				border:1px solid #ddd;
 				border-radius: 0px;
-				background: white;
+				background: @theme-pager-bg;
 				box-shadow: none;
 				text-shadow: none;
 			}
@@ -951,7 +950,7 @@ img::-moz-selection {
 			li.ds-tab a.ds-current{
 				border:1px solid #ddd;
 				border-radius: 0px;
-				background: white;
+				background: @theme-pager-bg;
 				box-shadow: none;
 				text-shadow: none;
 			}
@@ -970,7 +969,7 @@ img::-moz-selection {
 			}
 			//v1.6 flatten button
 			.ds-post-button{
-				background: white;
+				background: @theme-pager-bg;
 				box-shadow: none;
 				&:hover{
 					background: @gray-light;
@@ -1027,108 +1026,8 @@ img::-moz-selection {
 	color: #fff;
 }
 .page-fullscreen footer .copyright a{
-	color: #fff;
+    color: #fff;
 }
 .page-fullscreen footer .copyright a:hover{
     color: #ddd;
 }
-
-
-@media (prefers-color-scheme: dark) {
-    body {
-        background-color: #0f0f12;
-        color: #e6e6e6;
-    }
-    a {
-        color: #9ecbff;
-    }
-    a:hover,
-    a:focus {
-        color: #66d1ff;
-    }
-
-    .post-container a {
-        color: #9ecbff;
-    }
-
-    .navbar-default .navbar-collapse {
-        background: #1a1a1a;
-        box-shadow: rgba(0, 0, 0, 0.5) 0px 5px 10px 2px;
-    }
-    .navbar-custom.is-fixed {
-        background-color: rgba(18, 18, 20, 0.9);
-        border-bottom: 1px solid #2a2a2a;
-    }
-    .navbar-custom.is-fixed .navbar-brand {
-        color: #e6e6e6;
-    }
-    .navbar-custom.is-fixed .nav li a:hover,
-    .navbar-custom.is-fixed .nav li a:focus {
-        color: #9ecbff;
-    }
-
-    .intro-header {
-        background-color: #222;
-    }
-
-    .post-preview > a {
-        color: #e6e6e6;
-    }
-    .post-preview > .post-meta {
-        color: #b0b0b0;
-    }
-
-    .pager li > a,
-    .pager li > span {
-        background-color: #1a1a1a;
-        color: #e6e6e6;
-        border-color: #333;
-    }
-    .pager li > a:hover,
-    .pager li > a:focus {
-        color: #fff;
-        background-color: #0085A1;
-        border: 1px solid #0085A1;
-    }
-
-    .floating-label-form-group {
-        border-left-color: #444;
-    }
-    form .row:first-child .floating-label-form-group {
-        border-top-color: #444;
-    }
-    .floating-label-form-group label {
-        color: #bfbfbf;
-    }
-
-    .table th,
-    .table td {
-        background-color: #1a1a1a;
-        color: #e6e6e6;
-        border-color: #333;
-    }
-    pre {
-        background-color: #0f0f12;
-        color: #e6e6e6;
-    }
-
-    .sidebar-container {
-        color: #b0b0b0;
-    }
-    .sidebar-container h5 {
-        color: #999;
-    }
-    .sidebar-container a {
-        color: #b0b0b0 !important;
-    }
-    .sidebar-container .tags a {
-        border-color: #666;
-    }
-
-    .side-catalog .active {
-        background-color: #262626;
-    }
-}
-
-
-
