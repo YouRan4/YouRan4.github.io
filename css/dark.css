@@ -28,6 +28,7 @@
   --highlight-bg: transparent;
   --highlight-text: inherit;
   --highlight-gc-bg: #EAF2F5;
+  --nav-collapse-text: #404040;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -61,6 +62,7 @@
     --highlight-bg: #0f0f12;
     --highlight-text: #dddddd;
     --highlight-gc-bg: #1e1e1e;
+    --nav-collapse-text: #e6e6e6;
   }
 }
 
@@ -94,6 +96,7 @@ html.theme-dark {
   --highlight-bg: #0f0f12;
   --highlight-text: #dddddd;
   --highlight-gc-bg: #1e1e1e;
+  --nav-collapse-text: #e6e6e6;
 }
 
 html.theme-light {
@@ -126,6 +129,7 @@ html.theme-light {
   --highlight-bg: transparent;
   --highlight-text: inherit;
   --highlight-gc-bg: #EAF2F5;
+  --nav-collapse-text: #404040;
 }
 
 body { background-color: var(--bg); color: var(--text); }
@@ -157,5 +161,8 @@ pre { background-color: var(--pre-bg); color: var(--text); }
 @media only screen and (max-width: 767px) {
   .navbar-default .navbar-collapse {
     background-color: var(--nav-collapse-bg);
+  }
+  .navbar-default .navbar-collapse .nav li a {
+    color: var(--nav-collapse-text);
   }
 }
