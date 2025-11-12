@@ -28,6 +28,17 @@ jobs:
           ruby-version: '3.2'
           bundler-cache: true
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Node dependencies
+        run: npm install
+
+      - name: Compile Less to CSS
+        run: npx grunt less:minified
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 

@@ -15,7 +15,7 @@ module.exports = function(grunt) {
                     paths: ["css"]
                 },
                 files: {
-                    "css/<%= pkg.name %>.css": "less/<%= pkg.name %>.less"
+                    "css/hux-blog.css": "less/hux-blog.less"
                 }
             },
             minified: {
@@ -24,7 +24,7 @@ module.exports = function(grunt) {
                     cleancss: true
                 },
                 files: {
-                    "css/<%= pkg.name %>.min.css": "less/<%= pkg.name %>.less"
+                    "css/hux-blog.min.css": "less/hux-blog.less"
                 }
             }
         },
@@ -39,7 +39,7 @@ module.exports = function(grunt) {
                     banner: '<%= banner %>'
                 },
                 files: {
-                    src: ['css/<%= pkg.name %>.css', 'css/<%= pkg.name %>.min.css', 'js/<%= pkg.name %>.min.js']
+                    src: ['css/hux-blog.css', 'css/hux-blog.min.css']
                 }
             }
         },
