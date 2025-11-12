@@ -2,6 +2,7 @@ source "https://rubygems.org"
 
 gem "jekyll", "~> 4.4.1"
 gem "jekyll-paginate"
+gem 'jekyll-theme-chirpy'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 # and associated library.

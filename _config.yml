@@ -8,6 +8,8 @@ keyword: "喜欢悠然自得, Blog, 技术博客, 个人博客, Jekyll 主题, �
 url: "http://p0m1se.club/"          # 你的主机，用于绝对 URL
 baseurl: ""      # 例如，如果博客托管在 'host/blog'，则设置为 '/blog'
 github_repo: "https://github.com/YouRan4/YouRan4.github.io.git" # 你的代码仓库
+theme: jekyll-theme-chirpy
+
 
 # 侧边栏设置
 sidebar: true                           # 是否使用侧边栏。
