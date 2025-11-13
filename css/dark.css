@@ -246,3 +246,15 @@ pre { background-color: var(--pre-bg); color: var(--text); }
 #gitalk-container .gt-btn-submit:hover { background-color: var(--link-hover); color: var(--pager-hover-text); border-color: var(--link-hover); }
 #gitalk-container .gt-popup,
 #gitalk-container .gt-list { background-color: var(--bg); color: var(--text); }
+
+/* GitTalk 已有评论列表 */
+#gitalk-container .gt-comments { background-color: var(--bg); color: var(--text); }
+#gitalk-container .gt-comments a { color: var(--link); }
+#gitalk-container .gt-comments a:hover,
+#gitalk-container .gt-comments a:focus { color: var(--link-hover); }
+#gitalk-container .gt-comments .gt-comment { background-color: var(--table-bg); color: var(--text); border-color: var(--table-border); }
+#gitalk-container .gt-comments .gt-comment .gt-comment-content { color: var(--text); }
+#gitalk-container .gt-comments .gt-comment .gt-comment-body { color: var(--text); }
+#gitalk-container .gt-comments .gt-comment pre,
+#gitalk-container .gt-comments .gt-comment code { background-color: var(--pre-bg); color: var(--text); }
+#gitalk-container .gt-comments .gt-comment blockquote { border-color: var(--table-border); color: var(--text); }
