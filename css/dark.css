@@ -25,6 +25,7 @@
   --nav-fixed-brand: #404040;
   --nav-fixed-link: #404040;
   --nav-fixed-link-hover: #0085A1;
+  --nav-collapse-link-hover: #0085A1;
   --highlight-bg: transparent;
   --highlight-text: inherit;
   --highlight-gc-bg: #EAF2F5;
@@ -59,6 +60,7 @@
     --nav-fixed-brand: #e6e6e6;
     --nav-fixed-link: #e6e6e6;
     --nav-fixed-link-hover: #9ecbff;
+    --nav-collapse-link-hover: #9ecbff;
     --highlight-bg: #0f0f12;
     --highlight-text: #dddddd;
     --highlight-gc-bg: #1e1e1e;
@@ -93,6 +95,7 @@ html.theme-dark {
   --nav-fixed-brand: #e6e6e6;
   --nav-fixed-link: #e6e6e6;
   --nav-fixed-link-hover: #9ecbff;
+  --nav-collapse-link-hover: #9ecbff;
   --highlight-bg: #0f0f12;
   --highlight-text: #dddddd;
   --highlight-gc-bg: #1e1e1e;
@@ -126,6 +129,7 @@ html.theme-light {
   --nav-fixed-brand: #404040;
   --nav-fixed-link: #404040;
   --nav-fixed-link-hover: #0085A1;
+  --nav-collapse-link-hover: #0085A1;
   --highlight-bg: transparent;
   --highlight-text: inherit;
   --highlight-gc-bg: #EAF2F5;
@@ -164,5 +168,9 @@ pre { background-color: var(--pre-bg); color: var(--text); }
   }
   .navbar-default .navbar-collapse .nav li a {
     color: var(--nav-collapse-text);
+  }
+  .navbar-default .navbar-collapse .nav li a:hover,
+  .navbar-default .navbar-collapse .nav li a:focus {
+    color: var(--nav-collapse-link-hover);
   }
 }
