@@ -359,26 +359,14 @@ pre code{
 			/* when the user scrolls down, we hide the header right above the viewport */
 			position: fixed;
 			top: -61px;
-			background-color: @theme-nav-fixed-bg;
-			border-bottom: 1px solid @theme-nav-fixed-border;
 			-webkit-transition: -webkit-transform 0.3s;
 			-moz-transition: -moz-transform 0.3s;
 			transition: transform 0.3s;
 			.navbar-brand {
-				color: @theme-text;
-				&:hover,
-				&:focus {
-					color: @theme-link-hover;
-				}
 			}
 			.nav {
 				li {
 					a {
-						color: @theme-text;
-						&:hover,
-						&:focus {
-							color: @theme-link-hover;
-						}
 					}
 				}
 			}
@@ -419,7 +407,6 @@ pre code{
 			0 4px 10px rgba(0, 0, 0, 0.4),    /* 柔和扩散 */
 			0 8px 20px rgba(0, 0, 0, 0.3);    /* 更远更淡 */
 		padding: 85px 0 55px;
-		color: @theme-nav-fixed-brand;
 		@media only screen and (min-width: 768px) {
 			padding: 150px 0;
 		}
@@ -476,7 +463,6 @@ pre code{
 			font-weight: 300;
 			font-size: 18px;
 			a {
-				color: @theme-nav-fixed-brand;
 			}
 		}
 		@media only screen and (min-width: 768px) {
@@ -497,11 +483,9 @@ pre code{
 
 .post-preview {
 	> a {
-		color: @theme-text;
 		&:hover,
 		&:focus {
 			text-decoration: none;
-			color: @theme-link-hover;
 		}
 		> .post-title {
 			font-size: 21px;
@@ -519,16 +503,13 @@ pre code{
 	}
 	> .post-meta {
 		.serif;
-		color: @theme-post-meta;
 		font-size: 16px;
 		font-style: italic;
 		margin-top: 0;
 		> a {
 			text-decoration: none;
-			color: @theme-text;
 			&:hover,
 			&:focus {
-				color: @theme-link-hover;
 				text-decoration: underline;
 			}
 		}

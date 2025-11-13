@@ -37,7 +37,8 @@
   --highlight-gc-bg: #d0d7de; /* 代码高亮分隔/灰背景（亮） */
   --nav-collapse-text: #404040; /* 折叠导航文字（亮） */
   /* 顶部整体（不滚动：标题/导航统一颜色） */
-  --nav-overlay: #ffffff; /* 顶部统一文字颜色（不滚动） */
+  --nav-overlay: #f0f6fc; /* 顶部统一文字颜色（不滚动） */
+  --header-text-shadow: 0 1px 2px rgba(0,0,0,0.6); /* 顶部文字阴影（不滚动） */
   /* 暗色调色板（改这里） — 同时作用于系统暗色与手动暗色 */
   --D-bg: #0d1117; /* 页面背景（暗） */
   --D-text: #c9d1d9; /* 主要文本（暗） */
@@ -159,16 +160,16 @@ a:hover, a:focus { color: var(--link-hover); }
 .navbar-custom .navbar-brand { color: var(--nav-fixed-brand); }
 .navbar-custom .nav li a:hover, .navbar-custom .nav li a:focus { color: var(--nav-fixed-link-hover); }
 .navbar-custom .navbar-brand:hover, .navbar-custom .navbar-brand:focus { color: var(--nav-fixed-link-hover); }
-.navbar-custom:not(.is-fixed) .navbar-brand { color: var(--nav-overlay); }
-.navbar-custom:not(.is-fixed) .nav li a { color: var(--nav-overlay); }
-.navbar-custom:not(.is-fixed) .nav li a:hover, .navbar-custom:not(.is-fixed) .nav li a:focus { color: var(--nav-overlay); }
-.navbar-custom:not(.is-fixed) .navbar-brand:hover, .navbar-custom:not(.is-fixed) .navbar-brand:focus { color: var(--nav-overlay); }
+.navbar-custom:not(.is-fixed) .navbar-brand { color: var(--nav-overlay); text-shadow: var(--header-text-shadow); }
+.navbar-custom:not(.is-fixed) .nav li a { color: var(--nav-overlay); text-shadow: var(--header-text-shadow); }
+.navbar-custom:not(.is-fixed) .nav li a:hover, .navbar-custom:not(.is-fixed) .nav li a:focus { color: var(--nav-overlay); text-shadow: var(--header-text-shadow); }
+.navbar-custom:not(.is-fixed) .navbar-brand:hover, .navbar-custom:not(.is-fixed) .navbar-brand:focus { color: var(--nav-overlay); text-shadow: var(--header-text-shadow); }
 /* 顶部横幅背景 */
 .intro-header { background-color: var(--intro-bg); }
-.intro-header .site-heading, .intro-header .post-heading, .intro-header .page-heading, .intro-header .subheading { color: var(--nav-overlay); }
-.intro-header .site-heading, .intro-header .post-heading, .intro-header .page-heading { color: var(--nav-overlay); }
-.intro-header a { color: var(--nav-overlay); }
-.intro-header a:hover, .intro-header a:focus { color: var(--nav-overlay); }
+.intro-header .site-heading, .intro-header .post-heading, .intro-header .page-heading, .intro-header .subheading { color: var(--nav-overlay); text-shadow: var(--header-text-shadow); }
+.intro-header .site-heading, .intro-header .post-heading, .intro-header .page-heading { color: var(--nav-overlay); text-shadow: var(--header-text-shadow); }
+.intro-header a { color: var(--nav-overlay); text-shadow: var(--header-text-shadow); }
+.intro-header a:hover, .intro-header a:focus { color: var(--nav-overlay); text-shadow: var(--header-text-shadow); }
 /* 文章列表与元信息 */
 .post-preview > a { color: var(--text); }
 .post-preview > .post-meta { color: var(--post-meta); }
@@ -215,3 +216,33 @@ pre { background-color: var(--pre-bg); color: var(--text); }
     background-color: transparent;
   }
 }
+
+#gitalk-container,
+#gitalk-container .gt-container { color: var(--text); }
+#gitalk-container .gt-container a { color: var(--link); }
+#gitalk-container .gt-container a:hover,
+#gitalk-container .gt-container a:focus { color: var(--link-hover); }
+#gitalk-container .gt-meta,
+#gitalk-container .gt-counts { color: var(--post-meta); }
+#gitalk-container .gt-comment { background-color: var(--table-bg); color: var(--text); border-color: var(--table-border); }
+#gitalk-container .gt-comment .gt-comment-content,
+#gitalk-container .gt-comment .gt-comment-body { color: var(--text); }
+#gitalk-container .gt-header,
+#gitalk-container .gt-footer { border-color: var(--form-border); }
+#gitalk-container .gt-header-textarea,
+#gitalk-container textarea,
+#gitalk-container input[type="text"],
+#gitalk-container input[type="search"] { background-color: var(--bg); color: var(--text); border-color: var(--form-border); }
+#gitalk-container .gt-header-textarea::placeholder,
+#gitalk-container textarea::placeholder,
+#gitalk-container input[type="text"]::placeholder,
+#gitalk-container input[type="search"]::placeholder { color: var(--label); }
+#gitalk-container .gt-btn,
+#gitalk-container .gt-btn-login,
+#gitalk-container .gt-btn-submit { background-color: var(--highlight-bg); color: var(--highlight-text); border-color: var(--form-border); }
+#gitalk-container .gt-btn:hover,
+#gitalk-container .gt-btn:focus,
+#gitalk-container .gt-btn-login:hover,
+#gitalk-container .gt-btn-submit:hover { background-color: var(--link-hover); color: var(--pager-hover-text); border-color: var(--link-hover); }
+#gitalk-container .gt-popup,
+#gitalk-container .gt-list { background-color: var(--bg); color: var(--text); }
