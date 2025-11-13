@@ -5,8 +5,8 @@
     <description>I like to be leisurely and carefree</description>
     <link>http://p0m1se.club//</link>
     <atom:link href="http://p0m1se.club//feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 13 Nov 2025 18:28:13 +0000</pubDate>
-    <lastBuildDate>Thu, 13 Nov 2025 18:28:13 +0000</lastBuildDate>
+    <pubDate>Thu, 13 Nov 2025 18:34:46 +0000</pubDate>
+    <lastBuildDate>Thu, 13 Nov 2025 18:34:46 +0000</lastBuildDate>
     <generator>Jekyll v4.4.1</generator>
     
       <item>
@@ -92,20 +92,20 @@
 获得密码后回到插件的界面把密码填上去端口号不需要改动，然后点连接，连接成功后右上角会弹出来已连接到OBS。
 然后设置插件开机启动，跟OBS一样 需要找到插件的主程序，右键属性-兼容性-勾选 &lt;strong&gt;以管理员身份运行此程序。&lt;/strong&gt;
 样式可以根据自己喜好设置 我这里提供一个预设。替换掉附加里面的内容，样式就跟我一样了。&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;BackgroundColor = #DD0031
-ForegroundColor = #000000
-TextColor = #E4E4E4
-SlideDuration = 400
-SlideOffset = 180
-LineWidth = 6.0
-Scale = 1.0
-MaxPathChars = 32
-ClickThrough = False
-ShowQuickActions = false
-ShowQuickActionsColoredLine = false
-QuickActionsOffset = 8.0
-IconHeight = 64.0
-IconPath = branding_rsx.ico
+&lt;div class=&quot;language-ini highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;py&quot;&gt;BackgroundColor&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c&quot;&gt;#DD0031
+&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;ForegroundColor = #000000&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;TextColor&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c&quot;&gt;#E4E4E4
+&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;SlideDuration = 400&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;SlideOffset&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;180&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;LineWidth&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;6.0&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;Scale&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;1.0&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;MaxPathChars&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;32&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;ClickThrough&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;False&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;ShowQuickActions&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;false&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;ShowQuickActionsColoredLine&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;false&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;QuickActionsOffset&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;8.0&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;IconHeight&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;64.0&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;IconPath&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;branding_rsx.ico&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;&lt;img src=&quot;/asset/images/20251112200405.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
