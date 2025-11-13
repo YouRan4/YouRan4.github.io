@@ -1,3 +1,4 @@
+/* 基础变量（默认亮色） */
 :root {
   --bg: #ffffff;
   --text: #404040;
@@ -26,12 +27,14 @@
   --nav-fixed-link: #404040;
   --nav-fixed-link-hover: #0085A1;
   --nav-collapse-link-hover: #0085A1;
+  --pager-hover-text: #fff;
   --highlight-bg: transparent;
   --highlight-text: inherit;
   --highlight-gc-bg: #EAF2F5;
   --nav-collapse-text: #404040;
 }
 
+/* 系统暗色变量（跟随系统偏好；未强制 theme-light 时生效） */
 @media (prefers-color-scheme: dark) {
   :root:not(.theme-light) {
     --bg: #0f0f12;
@@ -68,6 +71,7 @@
   }
 }
 
+/* 手动暗色变量（用户强制暗色） */
 html.theme-dark {
   --bg: #0f0f12;
   --text: #e6e6e6;
@@ -102,6 +106,7 @@ html.theme-dark {
   --nav-collapse-text: #e6e6e6;
 }
 
+/* 手动亮色变量（用户强制亮色） */
 html.theme-light {
   --bg: #ffffff;
   --text: #404040;
@@ -136,41 +141,65 @@ html.theme-light {
   --nav-collapse-text: #404040;
 }
 
+/* 基础样式（依赖上面的主题变量） */
 body { background-color: var(--bg); color: var(--text); }
 a { color: var(--link); }
 a:hover, a:focus { color: var(--link-hover); }
 .post-container a { color: var(--link); }
+.post-container a:hover, .post-container a:focus { color: var(--link-hover); }
+/* 固定导航栏（滚动到顶部时） */
 .navbar-custom.is-fixed { background-color: var(--nav-fixed-bg); border-bottom: 1px solid var(--nav-fixed-border); }
 .navbar-custom.is-fixed .navbar-brand { color: var(--nav-fixed-brand); }
 .navbar-custom.is-fixed .nav li a:hover, .navbar-custom.is-fixed .nav li a:focus { color: var(--nav-fixed-link-hover); }
 .navbar-custom.is-fixed .nav li a { color: var(--nav-fixed-link); }
+.navbar-custom .nav li a { color: var(--nav-fixed-brand); }
+.navbar-custom .nav li a:hover, .navbar-custom .nav li a:focus { color: var(--nav-fixed-link-hover); }
+.navbar-custom .navbar-brand:hover, .navbar-custom .navbar-brand:focus { color: var(--nav-fixed-link-hover); }
+/* 顶部横幅背景 */
 .intro-header { background-color: var(--intro-bg); }
+/* 文章列表与元信息 */
 .post-preview > a { color: var(--text); }
 .post-preview > .post-meta { color: var(--post-meta); }
+/* 分页（Pager） */
 .pager li > a, .pager li > span { background-color: var(--pager-bg); color: var(--pager-text); border-color: var(--pager-border); }
-.pager li > a:hover, .pager li > a:focus { color: #fff; background-color: #0085A1; border: 1px solid #0085A1; }
+/* 分页（Pager）悬浮/聚焦态（随模式切换）*/
+.pager li > a:hover, .pager li > a:focus { color: var(--pager-hover-text); background-color: var(--link-hover); border: 1px solid var(--link-hover); }
+/* 表单边框与标签颜色 */
 .floating-label-form-group { border-left-color: var(--form-border); }
 form .row:first-child .floating-label-form-group { border-top-color: var(--form-border); }
 .floating-label-form-group label { color: var(--label); }
+/* 表格样式 */
 .table th, .table td { background-color: var(--table-bg); color: var(--table-text); border-color: var(--table-border); }
+/* 代码块背景 */
 pre { background-color: var(--pre-bg); color: var(--text); }
+/* 侧边栏（文本、标题、链接、标签边框） */
 .sidebar-container { color: var(--sidebar-text); }
 .sidebar-container h5 { color: var(--sidebar-h5); }
 .sidebar-container a { color: var(--sidebar-link) !important; }
 .sidebar-container .tags a { border-color: var(--sidebar-tag-border); }
+/* 目录当前项背景（桌面端） */
 .side-catalog .active { background-color: var(--catalog-active-bg); }
+/* 代码高亮主题（背景、普通文本、diff 标记） */
 .highlight { background-color: var(--highlight-bg); }
 .highlight .n, .highlight .nn { color: var(--highlight-text); }
 .highlight .gc { background-color: var(--highlight-gc-bg); }
+/* 移动端样式（仅 max-width: 767px） */
 @media only screen and (max-width: 767px) {
   .navbar-default .navbar-collapse {
     background-color: var(--nav-collapse-bg);
   }
+  /* 移动端导航文字颜色 */
   .navbar-default .navbar-collapse .nav li a {
     color: var(--nav-collapse-text);
   }
+  /* 移动端导航悬浮/聚焦颜色 */
   .navbar-default .navbar-collapse .nav li a:hover,
   .navbar-default .navbar-collapse .nav li a:focus {
     color: var(--nav-collapse-link-hover);
+  }
+  /* 移动端导航点击态背景不变 */
+  .navbar-default .navbar-collapse .nav li a:active {
+    background: none;
+    background-color: transparent;
   }
 }
