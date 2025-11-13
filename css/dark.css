@@ -258,6 +258,9 @@ pre { background-color: var(--pre-bg); color: var(--text); }
 #gitalk-container .gt-comments .gt-comment pre,
 #gitalk-container .gt-comments .gt-comment code { background-color: var(--pre-bg); color: var(--text); }
 #gitalk-container .gt-comments .gt-comment blockquote { border-color: var(--table-border); color: var(--text); }
+#gitalk-container .gt-comment .gt-comment-content { background-color: var(--bg); }
+#gitalk-container .gt-comment-quote { background-color: var(--highlight-bg); border-color: var(--table-border); color: var(--text); }
+#gitalk-container .gt-comment-attachments { background-color: var(--bg); border-color: var(--table-border); }
 
 /* Post 正文代码块与行内代码（Markdown / Pygments） */
 .post-container .highlight { background-color: var(--highlight-bg); }
@@ -268,3 +271,35 @@ pre { background-color: var(--pre-bg); color: var(--text); }
 .post-container .highlight .n,
 .post-container .highlight .nn { color: var(--highlight-text); }
 .post-container :not(pre) > code { background-color: var(--highlight-bg); color: var(--highlight-text); border: 1px solid var(--table-border); padding: 2px 4px; border-radius: 3px; }
+
+.post-container .highlight .c,
+.post-container .highlight .cm,
+.post-container .highlight .c1,
+.post-container .highlight .cs { color: #8b949e; font-style: italic; }
+.post-container .highlight .k,
+.post-container .highlight .kd,
+.post-container .highlight .kn,
+.post-container .highlight .kp,
+.post-container .highlight .kr { color: #ff7b72; }
+.post-container .highlight .s,
+.post-container .highlight .sb,
+.post-container .highlight .sc,
+.post-container .highlight .sd,
+.post-container .highlight .s1,
+.post-container .highlight .s2,
+.post-container .highlight .se,
+.post-container .highlight .sh,
+.post-container .highlight .si,
+.post-container .highlight .sx,
+.post-container .highlight .sr { color: #a5d6ff; }
+.post-container .highlight .m,
+.post-container .highlight .mf,
+.post-container .highlight .mh,
+.post-container .highlight .mi,
+.post-container .highlight .mo { color: #a5d6ff; }
+.post-container .highlight .nf { color: #d2a8ff; }
+.post-container .highlight .na,
+.post-container .highlight .nb { color: #79c0ff; }
+.post-container .highlight .nc,
+.post-container .highlight .nn { color: #ffa657; }
+.post-container .highlight .nt { color: #79c0ff; }
