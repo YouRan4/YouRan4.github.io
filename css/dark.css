@@ -1,145 +1,151 @@
-/* 基础变量（默认亮色） */
+/* 亮色变量（改这里） */
 :root {
   --bg: #ffffff;
-  --text: #404040;
-  --link: #404040;
-  --link-hover: #0085A1;
-  --intro-bg: #808080;
-  --post-meta: #808080;
-  --pager-bg: #ffffff;
-  --pager-text: #404040;
-  --pager-border: #eee;
-  --form-border: #eee;
-  --label: #404040;
-  --table-bg: #ffffff;
-  --table-text: #404040;
-  --table-border: #eee;
-  --pre-bg: #ffffff;
-  --sidebar-text: #bfbfbf;
-  --sidebar-h5: #808080;
-  --sidebar-link: #bfbfbf;
-  --sidebar-tag-border: #bfbfbf;
-  --catalog-active-bg: #F5F5F5;
-  --nav-collapse-bg: #ffffff;
-  --nav-fixed-bg: rgba(255,255,255,0.9);
-  --nav-fixed-border: #f2f2f2;
-  --nav-fixed-brand: #404040;
-  --nav-fixed-link: #404040;
-  --nav-fixed-link-hover: #0085A1;
-  --nav-collapse-link-hover: #0085A1;
-  --pager-hover-text: #fff;
-  --highlight-bg: transparent;
-  --highlight-text: inherit;
-  --highlight-gc-bg: #EAF2F5;
-  --nav-collapse-text: #404040;
+  --text: #404040; /* 主要文本（亮） */
+  --link: #404040; /* 链接文字（亮） */
+  --link-hover: #0085A1; /* 链接悬浮（亮） */
+  --intro-bg: #808080; /* 顶部横幅/封面背景（亮） */
+  --post-meta: #808080; /* 文章元信息文字（亮） */
+  /* 亮色：分页（Pager） */
+  --pager-bg: #ffffff; /* 分页背景（亮） */
+  --pager-text: #404040; /* 分页文字（亮） */
+  --pager-border: #eee; /* 分页边框（亮） */
+  --form-border: #eee; /* 表单边框（亮） */
+  --label: #404040; /* 表单标签/提示文字（亮） */
+  --table-bg: #ffffff; /* 表格背景（亮） */
+  --table-text: #404040; /* 表格文字（亮） */
+  --table-border: #eee; /* 表格边框（亮） */
+  --pre-bg: #ffffff; /* 代码块背景（亮） */
+  --sidebar-text: #bfbfbf; /* 侧边栏文字（亮） */
+  --sidebar-h5: #808080; /* 侧边栏标题（亮） */
+  --sidebar-link: #bfbfbf; /* 侧边栏链接（亮） */
+  --sidebar-tag-border: #bfbfbf; /* 侧边栏标签边框（亮） */
+  --catalog-active-bg: #F5F5F5; /* 目录激活项背景（亮） */
+  /* 亮色：移动端导航（折叠） */
+  --nav-collapse-bg: #ffffff; /* 移动端折叠导航背景（亮） */
+  /* 亮色：导航（固定态） */
+  --nav-fixed-bg: rgba(246,248,250,0.9); /* 固定导航背景（亮） */
+  --nav-fixed-border: #d0d7de; /* 固定导航底边框（亮） */
+  --nav-fixed-brand: #24292f; /* 导航品牌文字（亮） */
+  --nav-fixed-link: #24292f; /* 导航链接文字（亮） */
+  --nav-fixed-link-hover: #0969da; /* 导航链接悬浮（亮） */
+  --nav-collapse-link-hover: #0969da; /* 折叠导航链接悬浮（亮） */
+  --pager-hover-text: #fff; /* 分页悬浮文字（亮） */
+  /* 亮色：代码高亮 */
+  --highlight-bg: #f6f8fa; /* 代码高亮背景（亮） */
+  --highlight-text: inherit; /* 代码高亮文字（亮） */
+  --highlight-gc-bg: #d0d7de; /* 代码高亮分隔/灰背景（亮） */
+  --nav-collapse-text: #404040; /* 折叠导航文字（亮） */
+  /* 亮色：标题（图片背景） */
+  --heading-color: #ffffff; /* 标题文字（图片背景） */
+  /* 暗色调色板（改这里） — 同时作用于系统暗色与手动暗色 */
+  --D-bg: #0d1117; /* 页面背景（暗） */
+  --D-text: #c9d1d9; /* 主要文本（暗） */
+  --D-link: #58a6ff; /* 链接文字（暗） */
+  --D-link-hover: #79c0ff; /* 链接悬浮（暗） */
+  --D-intro-bg: #161b22; /* 顶部横幅/封面背景（暗） */
+  --D-post-meta: #8b949e; /* 文章元信息文字（暗） */
+  --D-pager-bg: #161b22; /* 分页背景（暗） */
+  --D-pager-text: #c9d1d9; /* 分页文字（暗） */
+  --D-pager-border: #30363d; /* 分页边框（暗） */
+  --D-form-border: #30363d; /* 表单边框（暗） */
+  --D-label: #8b949e; /* 表单标签/提示文字（暗） */
+  --D-table-bg: #0d1117; /* 表格背景（暗） */
+  --D-table-text: #c9d1d9; /* 表格文字（暗） */
+  --D-table-border: #30363d; /* 表格边框（暗） */
+  --D-pre-bg: #0d1117; /* 代码块背景（暗） */
+  --D-sidebar-text: #8b949e; /* 侧边栏文字（暗） */
+  --D-sidebar-h5: #c9d1d9; /* 侧边栏标题（暗） */
+  --D-sidebar-link: #8b949e; /* 侧边栏链接（暗） */
+  --D-sidebar-tag-border: #30363d; /* 侧边栏标签边框（暗） */
+  --D-catalog-active-bg: #161b22; /* 目录激活项背景（暗） */
+  --D-nav-collapse-bg: #161b22; /* 折叠导航背景（暗） */
+  --D-nav-fixed-bg: rgba(22,27,34,0.9); /* 固定导航背景（暗） */
+  --D-nav-fixed-border: #30363d; /* 固定导航底边框（暗） */
+  --D-nav-fixed-brand: #ffffff; /* 导航品牌文字（暗） */
+  --D-nav-fixed-link: #ffffff; /* 导航链接文字（暗） */
+  --D-nav-fixed-link-hover: #58a6ff; /* 导航链接悬浮（暗） */
+  --D-nav-collapse-link-hover: #58a6ff; /* 折叠导航链接悬浮（暗） */
+  --D-highlight-bg: #0d1117; /* 代码高亮背景（暗） */
+  --D-highlight-text: #c9d1d9; /* 代码高亮文字（暗） */
+  --D-highlight-gc-bg: #161b22; /* 代码高亮分隔/灰背景（暗） */
+  --D-nav-collapse-text: #c9d1d9; /* 折叠导航文字（暗） */
 }
 
-/* 系统暗色变量（跟随系统偏好；未强制 theme-light 时生效） */
+/* 系统暗色映射（通常不改，引用上面的暗色调色板 D-*） */
 @media (prefers-color-scheme: dark) {
   :root:not(.theme-light) {
-    --bg: #0f0f12;
-    --text: #e6e6e6;
-    --link: #9ecbff;
-    --link-hover: #66d1ff;
-    --intro-bg: #222;
-    --post-meta: #b0b0b0;
-    --pager-bg: #1a1a1a;
-    --pager-text: #e6e6e6;
-    --pager-border: #333;
-    --form-border: #444;
-    --label: #bfbfbf;
-    --table-bg: #1a1a1a;
-    --table-text: #e6e6e6;
-    --table-border: #333;
-    --pre-bg: #0f0f12;
-    --sidebar-text: #b0b0b0;
-    --sidebar-h5: #999;
-    --sidebar-link: #b0b0b0;
-    --sidebar-tag-border: #666;
-    --catalog-active-bg: #262626;
-    --nav-collapse-bg: #1a1a1a;
-    --nav-fixed-bg: rgba(18,18,20,0.9);
-    --nav-fixed-border: #2a2a2a;
-    --nav-fixed-brand: #e6e6e6;
-    --nav-fixed-link: #e6e6e6;
-    --nav-fixed-link-hover: #9ecbff;
-    --nav-collapse-link-hover: #9ecbff;
-    --highlight-bg: #0f0f12;
-    --highlight-text: #dddddd;
-    --highlight-gc-bg: #1e1e1e;
-    --nav-collapse-text: #e6e6e6;
+    --bg: var(--D-bg);
+    --text: var(--D-text);
+    --link: var(--D-link);
+    --link-hover: var(--D-link-hover);
+    --intro-bg: var(--D-intro-bg);
+    --post-meta: var(--D-post-meta);
+    --pager-bg: var(--D-pager-bg);
+    --pager-text: var(--D-pager-text);
+    --pager-border: var(--D-pager-border);
+    --form-border: var(--D-form-border);
+    --label: var(--D-label);
+    --table-bg: var(--D-table-bg);
+    --table-text: var(--D-table-text);
+    --table-border: var(--D-table-border);
+    --pre-bg: var(--D-pre-bg);
+    --sidebar-text: var(--D-sidebar-text);
+    --sidebar-h5: var(--D-sidebar-h5);
+    --sidebar-link: var(--D-sidebar-link);
+    --sidebar-tag-border: var(--D-sidebar-tag-border);
+    --catalog-active-bg: var(--D-catalog-active-bg);
+    --nav-collapse-bg: var(--D-nav-collapse-bg);
+    --nav-fixed-bg: var(--D-nav-fixed-bg);
+    --nav-fixed-border: var(--D-nav-fixed-border);
+    --nav-fixed-brand: var(--D-nav-fixed-brand);
+    --nav-fixed-link: var(--D-nav-fixed-link);
+    --nav-fixed-link-hover: var(--D-nav-fixed-link-hover);
+    --nav-collapse-link-hover: var(--D-nav-collapse-link-hover);
+    --highlight-bg: var(--D-highlight-bg);
+    --highlight-text: var(--D-highlight-text);
+    --highlight-gc-bg: var(--D-highlight-gc-bg);
+    --nav-collapse-text: var(--D-nav-collapse-text);
+    --heading-color: var(--heading-color);
   }
 }
 
-/* 手动暗色变量（用户强制暗色） */
+/* 手动暗色映射（通常不改，引用上面的暗色调色板 D-*） */
 html.theme-dark {
-  --bg: #0f0f12;
-  --text: #e6e6e6;
-  --link: #9ecbff;
-  --link-hover: #66d1ff;
-  --intro-bg: #222;
-  --post-meta: #b0b0b0;
-  --pager-bg: #1a1a1a;
-  --pager-text: #e6e6e6;
-  --pager-border: #333;
-  --form-border: #444;
-  --label: #bfbfbf;
-  --table-bg: #1a1a1a;
-  --table-text: #e6e6e6;
-  --table-border: #333;
-  --pre-bg: #0f0f12;
-  --sidebar-text: #b0b0b0;
-  --sidebar-h5: #999;
-  --sidebar-link: #b0b0b0;
-  --sidebar-tag-border: #666;
-  --catalog-active-bg: #262626;
-  --nav-collapse-bg: #1a1a1a;
-  --nav-fixed-bg: rgba(18,18,20,0.9);
-  --nav-fixed-border: #2a2a2a;
-  --nav-fixed-brand: #e6e6e6;
-  --nav-fixed-link: #e6e6e6;
-  --nav-fixed-link-hover: #9ecbff;
-  --nav-collapse-link-hover: #9ecbff;
-  --highlight-bg: #0f0f12;
-  --highlight-text: #dddddd;
-  --highlight-gc-bg: #1e1e1e;
-  --nav-collapse-text: #e6e6e6;
+  --bg: var(--D-bg);
+  --text: var(--D-text);
+  --link: var(--D-link);
+  --link-hover: var(--D-link-hover);
+  --intro-bg: var(--D-intro-bg);
+  --post-meta: var(--D-post-meta);
+  --pager-bg: var(--D-pager-bg);
+  --pager-text: var(--D-pager-text);
+  --pager-border: var(--D-pager-border);
+  --form-border: var(--D-form-border);
+  --label: var(--D-label);
+  --table-bg: var(--D-table-bg);
+  --table-text: var(--D-table-text);
+  --table-border: var(--D-table-border);
+  --pre-bg: var(--D-pre-bg);
+  --sidebar-text: var(--D-sidebar-text);
+  --sidebar-h5: var(--D-sidebar-h5);
+  --sidebar-link: var(--D-sidebar-link);
+  --sidebar-tag-border: var(--D-sidebar-tag-border);
+  --catalog-active-bg: var(--D-catalog-active-bg);
+  --nav-collapse-bg: var(--D-nav-collapse-bg);
+  --nav-fixed-bg: var(--D-nav-fixed-bg);
+  --nav-fixed-border: var(--D-nav-fixed-border);
+  --nav-fixed-brand: var(--D-nav-fixed-brand);
+  --nav-fixed-link: var(--D-nav-fixed-link);
+  --nav-fixed-link-hover: var(--D-nav-fixed-link-hover);
+  --nav-collapse-link-hover: var(--D-nav-collapse-link-hover);
+  --highlight-bg: var(--D-highlight-bg);
+  --highlight-text: var(--D-highlight-text);
+  --highlight-gc-bg: var(--D-highlight-gc-bg);
+  --nav-collapse-text: var(--D-nav-collapse-text);
+  --heading-color: var(--heading-color);
 }
 
-/* 手动亮色变量（用户强制亮色） */
-html.theme-light {
-  --bg: #ffffff;
-  --text: #404040;
-  --link: #404040;
-  --link-hover: #0085A1;
-  --intro-bg: #808080;
-  --post-meta: #808080;
-  --pager-bg: #ffffff;
-  --pager-text: #404040;
-  --pager-border: #eee;
-  --form-border: #eee;
-  --label: #404040;
-  --table-bg: #ffffff;
-  --table-text: #404040;
-  --table-border: #eee;
-  --pre-bg: #ffffff;
-  --sidebar-text: #bfbfbf;
-  --sidebar-h5: #808080;
-  --sidebar-link: #bfbfbf;
-  --sidebar-tag-border: #bfbfbf;
-  --catalog-active-bg: #F5F5F5;
-  --nav-collapse-bg: #ffffff;
-  --nav-fixed-bg: rgba(255,255,255,0.9);
-  --nav-fixed-border: #f2f2f2;
-  --nav-fixed-brand: #404040;
-  --nav-fixed-link: #404040;
-  --nav-fixed-link-hover: #0085A1;
-  --nav-collapse-link-hover: #0085A1;
-  --highlight-bg: transparent;
-  --highlight-text: inherit;
-  --highlight-gc-bg: #EAF2F5;
-  --nav-collapse-text: #404040;
-}
 
 /* 基础样式（依赖上面的主题变量） */
 body { background-color: var(--bg); color: var(--text); }
@@ -152,11 +158,13 @@ a:hover, a:focus { color: var(--link-hover); }
 .navbar-custom.is-fixed .navbar-brand { color: var(--nav-fixed-brand); }
 .navbar-custom.is-fixed .nav li a:hover, .navbar-custom.is-fixed .nav li a:focus { color: var(--nav-fixed-link-hover); }
 .navbar-custom.is-fixed .nav li a { color: var(--nav-fixed-link); }
-.navbar-custom .nav li a { color: var(--nav-fixed-brand); }
+.navbar-custom .navbar-brand { color: var(--nav-fixed-brand); }
 .navbar-custom .nav li a:hover, .navbar-custom .nav li a:focus { color: var(--nav-fixed-link-hover); }
 .navbar-custom .navbar-brand:hover, .navbar-custom .navbar-brand:focus { color: var(--nav-fixed-link-hover); }
 /* 顶部横幅背景 */
 .intro-header { background-color: var(--intro-bg); }
+.intro-header .site-heading, .intro-header .post-heading, .intro-header .page-heading, .intro-header .subheading { color: var(--heading-color); }
+.intro-header .site-heading, .intro-header .post-heading, .intro-header .page-heading { color: var(--nav-fixed-brand); }
 /* 文章列表与元信息 */
 .post-preview > a { color: var(--text); }
 .post-preview > .post-meta { color: var(--post-meta); }
@@ -183,7 +191,7 @@ pre { background-color: var(--pre-bg); color: var(--text); }
 .highlight { background-color: var(--highlight-bg); }
 .highlight .n, .highlight .nn { color: var(--highlight-text); }
 .highlight .gc { background-color: var(--highlight-gc-bg); }
-/* 移动端样式（仅 max-width: 767px） */
+/* 移动端：导航折叠区域（背景/文字/悬浮/点击） */
 @media only screen and (max-width: 767px) {
   .navbar-default .navbar-collapse {
     background-color: var(--nav-collapse-bg);
