@@ -36,8 +36,8 @@
   --highlight-text: inherit; /* 代码高亮文字（亮） */
   --highlight-gc-bg: #d0d7de; /* 代码高亮分隔/灰背景（亮） */
   --nav-collapse-text: #404040; /* 折叠导航文字（亮） */
-  /* 亮色：标题（图片背景） */
-  --heading-color: #ffffff; /* 标题文字（图片背景） */
+  /* 顶部整体（不滚动：标题/导航统一颜色） */
+  --nav-overlay: #ffffff; /* 顶部统一文字颜色（不滚动） */
   /* 暗色调色板（改这里） — 同时作用于系统暗色与手动暗色 */
   --D-bg: #0d1117; /* 页面背景（暗） */
   --D-text: #c9d1d9; /* 主要文本（暗） */
@@ -106,7 +106,6 @@
     --highlight-text: var(--D-highlight-text);
     --highlight-gc-bg: var(--D-highlight-gc-bg);
     --nav-collapse-text: var(--D-nav-collapse-text);
-    --heading-color: var(--heading-color);
   }
 }
 
@@ -143,7 +142,6 @@ html.theme-dark {
   --highlight-text: var(--D-highlight-text);
   --highlight-gc-bg: var(--D-highlight-gc-bg);
   --nav-collapse-text: var(--D-nav-collapse-text);
-  --heading-color: var(--heading-color);
 }
 
 
@@ -161,10 +159,16 @@ a:hover, a:focus { color: var(--link-hover); }
 .navbar-custom .navbar-brand { color: var(--nav-fixed-brand); }
 .navbar-custom .nav li a:hover, .navbar-custom .nav li a:focus { color: var(--nav-fixed-link-hover); }
 .navbar-custom .navbar-brand:hover, .navbar-custom .navbar-brand:focus { color: var(--nav-fixed-link-hover); }
+.navbar-custom:not(.is-fixed) .navbar-brand { color: var(--nav-overlay); }
+.navbar-custom:not(.is-fixed) .nav li a { color: var(--nav-overlay); }
+.navbar-custom:not(.is-fixed) .nav li a:hover, .navbar-custom:not(.is-fixed) .nav li a:focus { color: var(--nav-overlay); }
+.navbar-custom:not(.is-fixed) .navbar-brand:hover, .navbar-custom:not(.is-fixed) .navbar-brand:focus { color: var(--nav-overlay); }
 /* 顶部横幅背景 */
 .intro-header { background-color: var(--intro-bg); }
-.intro-header .site-heading, .intro-header .post-heading, .intro-header .page-heading, .intro-header .subheading { color: var(--heading-color); }
-.intro-header .site-heading, .intro-header .post-heading, .intro-header .page-heading { color: var(--nav-fixed-brand); }
+.intro-header .site-heading, .intro-header .post-heading, .intro-header .page-heading, .intro-header .subheading { color: var(--nav-overlay); }
+.intro-header .site-heading, .intro-header .post-heading, .intro-header .page-heading { color: var(--nav-overlay); }
+.intro-header a { color: var(--nav-overlay); }
+.intro-header a:hover, .intro-header a:focus { color: var(--nav-overlay); }
 /* 文章列表与元信息 */
 .post-preview > a { color: var(--text); }
 .post-preview > .post-meta { color: var(--post-meta); }
