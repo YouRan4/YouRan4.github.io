@@ -51,7 +51,7 @@
   --D-pager-border: #30363d; /* 分页边框（暗） */
   --D-form-border: #30363d; /* 表单边框（暗） */
   --D-label: #8b949e; /* 表单标签/提示文字（暗） */
-  --D-table-bg: #161b22; /* 表格背景（暗） */
+  --D-table-bg: #0D1117; /* 表格背景（暗） */
   --D-table-text: #c9d1d9; /* 表格文字（暗） */
   --D-table-border: #30363d; /* 表格边框（暗） */
   --D-pre-bg: #0d1117; /* 代码块背景（暗） */
@@ -192,6 +192,14 @@ pre { background-color: var(--pre-bg); color: var(--text); }
 .sidebar-container .tags a { border-color: var(--sidebar-tag-border); }
 /* 目录当前项背景（桌面端） */
 .side-catalog .active { background-color: var(--catalog-active-bg); }
+/* 右侧目录（CATALOG）适配亮/暗主题 */
+.side-catalog { color: var(--sidebar-text); }
+.side-catalog h5, .side-catalog h5 a, .side-catalog .catalog-toggle { color: var(--sidebar-h5); }
+.side-catalog .catalog-body a { color: var(--sidebar-link); }
+.side-catalog .catalog-body a:hover, .side-catalog .catalog-body a:focus { color: var(--link-hover); }
+.side-catalog .active a { color: var(--link-hover) !important; }
+.side-catalog hr { border-color: var(--table-border); }
+.side-catalog .catalog-body li a:active { background-color: var(--catalog-active-bg); border-radius: 4px; }
 /* 代码高亮主题（背景、普通文本、diff 标记） */
 .highlight { background-color: var(--highlight-bg); }
 .highlight .n, .highlight .nn { color: var(--highlight-text); }
@@ -262,6 +270,15 @@ pre { background-color: var(--pre-bg); color: var(--text); }
 #gitalk-container .gt-comment-quote { background-color: var(--highlight-bg); border-color: var(--table-border); color: var(--text); }
 #gitalk-container .gt-comment-attachments { background-color: var(--bg); border-color: var(--table-border); }
 
+/* GitTalk 评论卡片风格（对齐 GitHub 风格） */
+#gitalk-container .gt-comment { border: 1px solid var(--table-border); border-radius: 6px; }
+#gitalk-container .gt-comment:hover { border-color: var(--highlight-gc-bg); }
+#gitalk-container .gt-comment .gt-comment-content { border-top-left-radius: 6px; border-top-right-radius: 6px; }
+#gitalk-container .gt-comment .gt-comment-content .gt-comment-header { background-color: var(--highlight-gc-bg); color: var(--text); border-bottom: 1px solid var(--table-border); padding: 8px 12px; border-top-left-radius: 6px; border-top-right-radius: 6px; }
+#gitalk-container .gt-comment .gt-comment-content .gt-comment-body { background-color: var(--bg); color: var(--text); padding: 12px; }
+#gitalk-container .gt-comment .gt-comment-content .gt-comment-body a { color: var(--link); }
+#gitalk-container .gt-comment .gt-comment-content .gt-comment-body a:hover { color: var(--link-hover); }
+
 /* Post 正文代码块与行内代码（Markdown / Pygments） */
 .post-container .highlight { background-color: var(--highlight-bg); }
 .post-container .highlight pre { background-color: var(--highlight-bg); color: var(--highlight-text); border: 1px solid var(--table-border); }
@@ -303,3 +320,27 @@ pre { background-color: var(--pre-bg); color: var(--text); }
 .post-container .highlight .nc,
 .post-container .highlight .nn { color: #ffa657; }
 .post-container .highlight .nt { color: #79c0ff; }
+
+.post-container .highlight .err { color: #f85149; }
+.post-container .highlight .o { color: #79c0ff; }
+.post-container .highlight .cp { color: #8b949e; font-style: italic; }
+.post-container .highlight .gd { background-color: rgba(248,81,73,0.15); color: var(--highlight-text); }
+.post-container .highlight .gi { background-color: rgba(46,160,67,0.15); color: var(--highlight-text); }
+.post-container .highlight .gh { color: #8b949e; }
+.post-container .highlight .gp { color: #8b949e; }
+.post-container .highlight .gs { color: var(--highlight-text); font-weight: bold; }
+.post-container .highlight .gu { color: #ffa657; }
+.post-container .highlight .gt { color: #f85149; }
+.post-container .highlight .kc { color: #ff7b72; }
+.post-container .highlight .kt { color: #ffa657; }
+.post-container .highlight .no { color: #79c0ff; }
+.post-container .highlight .ni { color: #79c0ff; }
+.post-container .highlight .ne { color: #f85149; }
+.post-container .highlight .nv { color: #79c0ff; }
+.post-container .highlight .ow { color: #79c0ff; }
+.post-container .highlight .w { color: #6e7681; }
+.post-container .highlight .ss { color: #b392f0; }
+.post-container .highlight .bp { color: #79c0ff; }
+.post-container .highlight .vc,
+.post-container .highlight .vg,
+.post-container .highlight .vi { color: #79c0ff; }
