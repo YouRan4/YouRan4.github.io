@@ -258,3 +258,13 @@ pre { background-color: var(--pre-bg); color: var(--text); }
 #gitalk-container .gt-comments .gt-comment pre,
 #gitalk-container .gt-comments .gt-comment code { background-color: var(--pre-bg); color: var(--text); }
 #gitalk-container .gt-comments .gt-comment blockquote { border-color: var(--table-border); color: var(--text); }
+
+/* Post 正文代码块与行内代码（Markdown / Pygments） */
+.post-container .highlight { background-color: var(--highlight-bg); }
+.post-container .highlight pre { background-color: var(--highlight-bg); color: var(--highlight-text); border: 1px solid var(--table-border); }
+.post-container pre { background-color: var(--pre-bg); color: var(--text); border: 1px solid var(--table-border); }
+.post-container pre code { color: var(--highlight-text); }
+.post-container .highlight .gc { background-color: var(--highlight-gc-bg); color: var(--highlight-text); }
+.post-container .highlight .n,
+.post-container .highlight .nn { color: var(--highlight-text); }
+.post-container :not(pre) > code { background-color: var(--highlight-bg); color: var(--highlight-text); border: 1px solid var(--table-border); padding: 2px 4px; border-radius: 3px; }
