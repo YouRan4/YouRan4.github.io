@@ -1,523 +1,95 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="I like to be leisurely and carefree">
-    <meta name="keywords"  content="喜欢悠然自得, Blog, 技术博客, 个人博客, Jekyll 主题, 计算机技术,游戏,悠然,沐阳">
-    <meta name="theme-color" content="#000000">
-    
-    <title>喜欢悠然自得 | Blog</title>
-
-    <!-- Web App Manifest -->
-    <link rel="manifest" href="/pwa/manifest.json">
-
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="/img/favicon.ico">
-
-    <!-- Safari Webpage Icon    by-BY -->
-    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
-    
-    <!-- Canonical URL -->
-    <link rel="canonical" href="http://p0m1se.club//">
-
-    <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/hux-blog.min.css">
-
-    
-
-    
-    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-    
-
-    <link rel="stylesheet" href="/css/theme.css">
-
-    <!-- Custom Fonts -->
-    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
-    <!-- Hux change font-awesome CDN to qiniu -->
-    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-
-    <!-- Hux Delete, sad but pending in China
-    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
-    css'>
-    -->
-
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <!-- ga & ba script hoook -->
-    <script></script>
-</head>
-
-
-<!-- hack iOS CSS :active style -->
-<body ontouchstart="">
-
-    <!-- Navigation -->
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header page-scroll">
-            <button type="button" class="navbar-toggle">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">喜欢悠然自得</a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div id="huxblog_navbar">
-            <div class="navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="/">Home</a>
-                    </li>
-                    
-                    <li>
-                        <a href="/about/">About</a>
-                    </li>
-                    
-                    <li>
-                        <a href="/tags/">Tags</a>
-                    </li>
-                    
-                </ul>
-            </div>
-        </div>
-        <!-- /.navbar-collapse -->
-    </div>
-    <!-- /.container -->
-</nav>
-<script>
-    // Drop Bootstarp low-performance Navbar
-    // Use customize navbar with high-quality material design animation
-    // in high-perf jank-free CSS3 implementation
-    var $body   = document.body;
-    var $toggle = document.querySelector('.navbar-toggle');
-    var $navbar = document.querySelector('#huxblog_navbar');
-    var $collapse = document.querySelector('.navbar-collapse');
-
-    var __HuxNav__ = {
-        close: function(){
-            $navbar.className = " ";
-            // wait until animation end.
-            setTimeout(function(){
-                // prevent frequently toggle
-                if($navbar.className.indexOf('in') < 0) {
-                    $collapse.style.height = "0px"
-                }
-            },400)
-        },
-        open: function(){
-            $collapse.style.height = "auto"
-            $navbar.className += " in";
+<!DOCTYPE html><html class="bg-background text-foreground scheme-light-dark" lang="zh-CN"> <head><script>
+    (function () {
+      const theme =
+        localStorage.getItem('theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches
+          ? 'dark'
+          : 'light')
+      document.documentElement.setAttribute('data-theme', theme)
+    })()
+  </script><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"><meta name="generator" content="Astro v5.16.4"><!-- 主要 Meta 标签（已去重） --><meta name="title" content="溪畔听风"><meta name="description" content="这是一段简短的博客描述。用于元标签与社交分享。"><link rel="canonical" href="https://p0m1se.club/"><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="https://p0m1se.club/"><meta property="og:title" content="溪畔听风"><meta property="og:description" content="这是一段简短的博客描述。用于元标签与社交分享。"><meta property="og:image" content="https://p0m1se.club/og-default.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><!-- Twitter --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:url" content="https://p0m1se.club/"><meta name="twitter:title" content="溪畔听风"><meta name="twitter:description" content="这是一段简短的博客描述。用于元标签与社交分享。"><meta name="twitter:image" content="https://p0m1se.club/og-default.png"><meta name="HandheldFriendly" content="True"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="format-detection" content="telephone=no,date=no,address=no,email=no,url=no"><meta name="theme-color" content="#2563eb" media="(prefers-color-scheme: dark)"><meta name="theme-color" content="#2563eb" media="(prefers-color-scheme: light)"><link rel="sitemap" href="/sitemap-index.xml"><link rel="manifest" href="/site.webmanifest"><link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="shortcut icon" href="/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><meta name="apple-mobile-web-app-title" content="astro-erudite"><link rel="manifest" href="/site.webmanifest"><!-- 预加载字体以减少布局抖动 --><link rel="preload" href="/fonts/GeistVF.woff2" as="font" type="font/woff2" crossorigin="anonymous"><link rel="preload" href="/fonts/GeistMonoVF.woff2" as="font" type="font/woff2" crossorigin="anonymous"><!-- 精简的 head 辅助标签，避免与 Head.astro 重复 --><title>溪畔听风</title><link rel="stylesheet" href="/_astro/about.CjIjf3e6.css"></head><body class="flex h-fit min-h-screen flex-col gap-y-6 font-sans" data-astro-transition-persist="astro-25uocxhb-1"> <!-- Skip to main content link for accessibility --> <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-primary focus:text-primary-foreground focus:rounded-md focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2" aria-label="跳转到主内容">
+跳转到主内容
+</a> <!-- Prevent same-page navigation to avoid unnecessary transitions --> <script>
+      (function() {
+        if (window.__preventSamePageNav) return
+        window.__preventSamePageNav = true
+        
+        function normalizePath(path) {
+          return path ? path.split('#')[0].replace(/\/$/, '') || '/' : '/'
         }
-    }
-
-    // Bind Event
-    $toggle.addEventListener('click', function(e){
-        if ($navbar.className.indexOf('in') > 0) {
-            __HuxNav__.close()
-        }else{
-            __HuxNav__.open()
+        
+        function shouldPreventNavigation(link) {
+          if (!link) return false
+          
+          const href = link.getAttribute('href')
+          if (!href || href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:')) {
+            return false
+          }
+          
+          const currentPath = normalizePath(window.location.pathname)
+          const targetPath = normalizePath(href)
+          
+          return currentPath === targetPath && !href.includes('#')
         }
-    })
-
-    /**
-     * Since Fastclick is used to delegate 'touchstart' globally
-     * to hack 300ms delay in iOS by performing a fake 'click',
-     * Using 'e.stopPropagation' to stop 'touchstart' event from 
-     * $toggle/$collapse will break global delegation.
-     * 
-     * Instead, we use a 'e.target' filter to prevent handler
-     * added to document close HuxNav.  
-     *
-     * Also, we use 'click' instead of 'touchstart' as compromise
-     */
-    document.addEventListener('click', function(e){
-        if(e.target == $toggle) return;
-        if(e.target.className == 'icon-bar') return;
-        __HuxNav__.close();
-    })
-</script>
-<button id="theme-toggle" aria-label="切换主题" style="position:fixed;right:16px;bottom:16px;z-index:1000;width:48px;height:48px;border-radius:50%;border:none;background:#0085A1;color:#fff;box-shadow:0 2px 8px rgba(0,0,0,.2);font-size:20px;line-height:48px;text-align:center;cursor:pointer">🌙</button>
-<script>
-    var themeKey = 'theme';
-    var btn = document.getElementById('theme-toggle');
-    function applyTheme(t){
-        var html = document.documentElement;
-        html.classList.remove('theme-dark');
-        html.classList.remove('theme-light');
-        if(t === 'dark') html.classList.add('theme-dark');
-        if(t === 'light') html.classList.add('theme-light');
-        btn.textContent = t === 'dark' ? '☀️' : '🌙';
-    }
-    var saved = localStorage.getItem(themeKey);
-    if(saved){
-        applyTheme(saved);
-    }else{
-        var sysDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-        applyTheme(sysDark ? 'dark' : 'light');
-    }
-    btn.addEventListener('click', function(){
-        var isDark = document.documentElement.classList.contains('theme-dark');
-        var isLight = document.documentElement.classList.contains('theme-light');
-        var current = isDark ? 'dark' : (isLight ? 'light' : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
-        var next = current === 'dark' ? 'light' : 'dark';
-        localStorage.setItem(themeKey, next);
-        applyTheme(next);
-    });
-</script>
-
-
-    <!-- Page Header -->
-<header class="intro-header" style="background-image: url('/img/post-bg-desk.jpg')">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
-                <div class="site-heading">
-                    <h1>喜欢悠然自得</h1>
-                    <!--<hr class="small">-->
-                    <span class="subheading">I like to be leisurely and carefree</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-
-<!-- Main Content -->
-<div class="container">
-	<div class="row">
         
-
-<!-- USE SIDEBAR -->
-    <!-- PostList Container -->
-    		<div class="
-                col-lg-8 col-lg-offset-1
-                col-md-8 col-md-offset-1
-                col-sm-12
-                col-xs-12
-                postlist-container
-            ">
-    			
-<div class="post-preview">
-    <a href="/2025/11/12/AMD%E6%98%BE%E5%8D%A1%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">
-        <h2 class="post-title">
-            AMD显卡
-        </h2>
+        // Handle touch events first (mobile) - must be non-passive to prevent default
+        function handleTouchStart(e) {
+          const link = e.target.closest('a[data-internal-link="true"]')
+          if (link && shouldPreventNavigation(link)) {
+            e.preventDefault()
+            e.stopPropagation()
+            e.stopImmediatePropagation()
+            return false
+          }
+        }
         
-        <h3 class="post-subtitle">
-            AMD显卡常见问题解决方案
-        </h3>
+        // Handle click events (desktop and mobile fallback)
+        function handleClick(e) {
+          const link = e.target.closest('a[data-internal-link="true"]')
+          if (link && shouldPreventNavigation(link)) {
+            e.preventDefault()
+            e.stopPropagation()
+            e.stopImmediatePropagation()
+            return false
+          }
+        }
         
-        <div class="post-content-preview">
-            显卡
+        // Use capture phase to intercept before Astro's view transitions
+        // Touch events must be non-passive to allow preventDefault
+        document.addEventListener('touchstart', handleTouchStart, { passive: false, capture: true })
+        document.addEventListener('click', handleClick, true)
+      })()
+    </script> <header class="bg-background/50 sticky top-0 z-50 backdrop-blur-sm xl:backdrop-blur-none xl:bg-transparent divide-y divide-border xl:divide-none"> <header class="bg-background/50 sticky top-0 z-[1000] backdrop-blur-md" data-astro-transition-persist="astro-l7r54iwe-2"> <div class="mx-auto flex max-w-3xl flex-wrap items-center justify-between gap-4 p-4"> <a href="/" target="_self" class="transition-colors duration-300 ease-in-out flex shrink-0 items-center gap-2 text-xl font-medium" data-astro-reload="true" data-internal-link="true" data-astro-reload>  <img src="/static/logo.svg" alt="标志" class="size-8 dark:block hidden" width="32" height="32" loading="eager" fetchpriority="high" data-astro-transition-persist="logo-dark"> <img src="/static/logod.svg" alt="标志" class="size-8 dark:hidden block" width="32" height="32" loading="eager" fetchpriority="high" data-astro-transition-persist="logo-light">   </a> <div class="flex items-center gap-2 md:gap-4"> <nav class="hidden items-center gap-4 text-sm sm:gap-6 md:flex"> <a href="/blog" target="_self" class="duration-300 ease-in-out text-foreground/60 hover:text-foreground/80 capitalize transition-colors flex items-center gap-1.5" data-internal-link="true">  <span>博客</span>  </a><a href="/about" target="_self" class="duration-300 ease-in-out text-foreground/60 hover:text-foreground/80 capitalize transition-colors flex items-center gap-1.5" data-internal-link="true">  <span>关于</span>  </a> </nav> <div class="hidden h-6 w-px bg-border/60 md:block" aria-hidden="true"></div> <style>astro-island,astro-slot,astro-static-slot{display:contents}</style><script>(()=>{var l=(n,t)=>{let i=async()=>{await(await n())()},e=typeof t.value=="object"?t.value:void 0,s={timeout:e==null?void 0:e.timeout};"requestIdleCallback"in window?window.requestIdleCallback(i,s):setTimeout(i,s.timeout||200)};(self.Astro||(self.Astro={})).idle=l;window.dispatchEvent(new Event("astro:idle"));})();</script><script>(()=>{var A=Object.defineProperty;var g=(i,o,a)=>o in i?A(i,o,{enumerable:!0,configurable:!0,writable:!0,value:a}):i[o]=a;var d=(i,o,a)=>g(i,typeof o!="symbol"?o+"":o,a);{let i={0:t=>m(t),1:t=>a(t),2:t=>new RegExp(t),3:t=>new Date(t),4:t=>new Map(a(t)),5:t=>new Set(a(t)),6:t=>BigInt(t),7:t=>new URL(t),8:t=>new Uint8Array(t),9:t=>new Uint16Array(t),10:t=>new Uint32Array(t),11:t=>1/0*t},o=t=>{let[l,e]=t;return l in i?i[l](e):void 0},a=t=>t.map(o),m=t=>typeof t!="object"||t===null?t:Object.fromEntries(Object.entries(t).map(([l,e])=>[l,o(e)]));class y extends HTMLElement{constructor(){super(...arguments);d(this,"Component");d(this,"hydrator");d(this,"hydrate",async()=>{var b;if(!this.hydrator||!this.isConnected)return;let e=(b=this.parentElement)==null?void 0:b.closest("astro-island[ssr]");if(e){e.addEventListener("astro:hydrate",this.hydrate,{once:!0});return}let c=this.querySelectorAll("astro-slot"),n={},h=this.querySelectorAll("template[data-astro-template]");for(let r of h){let s=r.closest(this.tagName);s!=null&&s.isSameNode(this)&&(n[r.getAttribute("data-astro-template")||"default"]=r.innerHTML,r.remove())}for(let r of c){let s=r.closest(this.tagName);s!=null&&s.isSameNode(this)&&(n[r.getAttribute("name")||"default"]=r.innerHTML)}let p;try{p=this.hasAttribute("props")?m(JSON.parse(this.getAttribute("props"))):{}}catch(r){let s=this.getAttribute("component-url")||"<unknown>",v=this.getAttribute("component-export");throw v&&(s+=` (export ${v})`),console.error(`[hydrate] Error parsing props for component ${s}`,this.getAttribute("props"),r),r}let u;await this.hydrator(this)(this.Component,p,n,{client:this.getAttribute("client")}),this.removeAttribute("ssr"),this.dispatchEvent(new CustomEvent("astro:hydrate"))});d(this,"unmount",()=>{this.isConnected||this.dispatchEvent(new CustomEvent("astro:unmount"))})}disconnectedCallback(){document.removeEventListener("astro:after-swap",this.unmount),document.addEventListener("astro:after-swap",this.unmount,{once:!0})}connectedCallback(){if(!this.hasAttribute("await-children")||document.readyState==="interactive"||document.readyState==="complete")this.childrenConnectedCallback();else{let e=()=>{document.removeEventListener("DOMContentLoaded",e),c.disconnect(),this.childrenConnectedCallback()},c=new MutationObserver(()=>{var n;((n=this.lastChild)==null?void 0:n.nodeType)===Node.COMMENT_NODE&&this.lastChild.nodeValue==="astro:end"&&(this.lastChild.remove(),e())});c.observe(this,{childList:!0}),document.addEventListener("DOMContentLoaded",e)}}async childrenConnectedCallback(){let e=this.getAttribute("before-hydration-url");e&&await import(e),this.start()}async start(){let e=JSON.parse(this.getAttribute("opts")),c=this.getAttribute("client");if(Astro[c]===void 0){window.addEventListener(`astro:${c}`,()=>this.start(),{once:!0});return}try{await Astro[c](async()=>{let n=this.getAttribute("renderer-url"),[h,{default:p}]=await Promise.all([import(this.getAttribute("component-url")),n?import(n):()=>()=>{}]),u=this.getAttribute("component-export")||"default";if(!u.includes("."))this.Component=h[u];else{this.Component=h;for(let f of u.split("."))this.Component=this.Component[f]}return this.hydrator=p,this.hydrate},e,this)}catch(n){console.error(`[astro-island] Error hydrating ${this.getAttribute("component-url")}`,n)}}attributeChangedCallback(){this.hydrate()}}d(y,"observedAttributes",["props"]),customElements.get("astro-island")||customElements.define("astro-island",y)}})();</script><astro-island uid="Z1eHOpN" prefix="r1" component-url="/_astro/mobile-menu.BbEJi462.js" component-export="default" renderer-url="/_astro/client.DvVvwLkk.js" props="{&quot;data-astro-transition-persist&quot;:[0,&quot;astro-sqfynlcg-3&quot;]}" ssr client="idle" opts="{&quot;name&quot;:&quot;MobileMenu&quot;,&quot;value&quot;:true}" data-astro-transition-persist="astro-sqfynlcg-3" await-children><button data-slot="dropdown-menu-trigger" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 size-9 md:hidden" title="Menu" type="button" id="radix-_r1R_0_" aria-haspopup="menu" aria-expanded="false" data-state="closed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu h-5 w-5" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg><span class="sr-only">Toggle menu</span></button><!--astro:end--></astro-island> <button data-slot="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 -my-2 -me-2 size-8" id="theme-toggle" title="Toggle theme"> <svg width="1em" height="1em" class="size-4 dark:hidden" data-icon="lucide:sun">   <symbol id="ai:lucide:sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></g></symbol><use href="#ai:lucide:sun"></use>  </svg> <svg width="1em" height="1em" class="absolute hidden size-4 dark:block" data-icon="lucide:moon">   <symbol id="ai:lucide:moon" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></symbol><use href="#ai:lucide:moon"></use>  </svg> <span class="sr-only">Toggle theme</span> </button> <script data-astro-rerun>
+  (() => {
+    const theme = (() => {
+      const stored = localStorage?.getItem('theme') ?? ''
+      if (['dark', 'light'].includes(stored)) return stored
+      return window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light'
+    })()
 
-LOW帧不稳（常见于9000系与7000系）
-
-AMD显卡常见于Low不稳定，这里以9070xt为例，是因为AMD驱动会尝试自动boost到3.4ghz,导致反复撞功耗墙。一般手动降频降压之后好转。具体的参数需要自己摸索。 电压不需要降太多，避免驱动超时。
-
-显卡驱动超时
-
-常见表现为游戏闪退后弹出错误报告窗口，但是系统还能识别到显卡
-
-
-
-一般由显卡驱动以及内存所导致，可以先尝试关...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by YouRan on November 12, 2025
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2025/11/11/OBS%E5%8D%B3%E6%97%B6%E5%9B%9E%E6%94%BE%E8%AE%BE%E7%BD%AE/">
-        <h2 class="post-title">
-            OBS即时回放
-        </h2>
-        
-        <h3 class="post-subtitle">
-            用OBS代替Nvidia的即时回放
-        </h3>
-        
-        <div class="post-content-preview">
-            OBS完美代替Nvidia即时回放
-
-设置即时回放
-
-  由于OBS 32.0更新移除了 –disable-shutdown-check 启动参数，这个教程只适合32.0以前的版本。
-需要事先设置好OBS的基础设置，录制参数之类的
-
-
-首先设置好保存回放的时间，注意OBS的回放缓存是在内存的。不要保存的太大，避免影响游戏体验。
-
-
-然后设置保存即时回放的快捷键
-
-设置开机自启动
-找到OBS的...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by YouRan on November 11, 2025
-    </p>
-</div>
-<hr>
-
-
-<!-- Pager -->
-
-
-    		</div>
-    <!-- Sidebar Container -->
-            <div class="
-                col-lg-3 col-lg-offset-0
-                col-md-3 col-md-offset-0
-                col-sm-12
-                col-xs-12
-                sidebar-container
-            ">
-                <!-- Featured Tags -->
-                
-                <section>
-                    <hr class="hidden-sm hidden-xs">
-                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
-                    <div class="tags">
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                    </div>
-                </section>
-                
-
-                <!-- Short About -->
-                <section class="visible-md visible-lg">
-                    <hr><h5><a href="/about/">ABOUT ME</a></h5>
-                    <div class="short-about">
-                        
-                            <a href="/about">
-                                <img src="/img/about.png"/>
-                            </a>
-                        
-                        
-                            <p>Goals determine what you going to be!</p>
-                        
-                        <!-- SNS Link -->
-                        <ul class="list-inline">
-                            
-                            <!-- add jianshu add target = "_blank" to <a> by BY -->
-                            
-                            
-                            
-                            
-                            
-                            
-                            <li>
-                                <a target="_blank" href="https://github.com/youran4">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            
-                            
-                        </ul>
-                        
-                            <p>✉️ 1670044232@qq.com</p>
-                        
-                    </div>
-                </section>
-                <!-- Friends Blog -->
-                
-                <hr>
-                <h5>FRIENDS</h5>
-                <ul class="list-inline">
-                    
-                        <li><a href="http://github.com">GitHub</a></li>
-                    
-                </ul>
-                
-    		</div>
-        
-	</div>
-</div>
-
-
-    <!-- Footer -->
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <ul class="list-inline text-center">
-                    
-                    <!-- add jianshu add target = "_blank" to <a> by BY -->
-                    
-                    
-
-                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
-                    
-                    
-
-
-                    
-                    
-                    <li>
-                        <a target="_blank" href="https://github.com/youran4">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                </ul>
-                <p class="copyright text-muted">
-                    Copyright &copy; 喜欢悠然自得 2025
-                    <br>
-                    Theme on <a href="https://github.com/YouRan4/YouRan4.github.io.git">GitHub</a> |
-                    <iframe
-                        style="margin-left: 2px; margin-bottom:-5px;"
-                        frameborder="0" scrolling="0" width="100px" height="20px"
-                        src="https://ghbtns.com/github-btn.html?user=youran4&repo=youran4.github.io&type=star&count=true" >
-                    </iframe>
-                </p>
-            </div>
-        </div>
-    </div>
-</footer>
-
-<!-- jQuery -->
-<script src="/js/jquery.min.js "></script>
-
-<!-- Bootstrap Core JavaScript -->
-<script src="/js/bootstrap.min.js "></script>
-
-<!-- Custom Theme JavaScript -->
-<script src="/js/hux-blog.min.js "></script>
-
-<!-- Service Worker -->
-
-<script type="text/javascript">
-    if(navigator.serviceWorker){
-        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
-        navigator.serviceWorker
-            .register('/sw.js')
-            .then((registration) => {console.log('Service Worker Registered. ', registration)})
-            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
-    }
-</script>
-
-
-
-<!-- async load function -->
-<script>
-    function async(u, c) {
-      var d = document, t = 'script',
-          o = d.createElement(t),
-          s = d.getElementsByTagName(t)[0];
-      o.src = u;
-      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
-      s.parentNode.insertBefore(o, s);
-    }
-</script>
-
-<!-- 
-     Because of the native support for backtick-style fenced code blocks 
-     right within the Markdown is landed in Github Pages, 
-     From V1.6, There is no need for Highlight.js, 
-     so Huxblog drops it officially.
-
-     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
-     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
-     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
--->
-<!--
-    <script>
-        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
-            hljs.initHighlightingOnLoad();
-        })
-    </script>
-    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
--->
-
-
-<!-- jquery.tagcloud.js -->
-<script>
-    // only load tagcloud.js in tag.html
-    if($('#tag_cloud').length !== 0){
-        async('/js/jquery.tagcloud.js',function(){
-            $.fn.tagcloud.defaults = {
-                //size: {start: 1, end: 1, unit: 'em'},
-                color: {start: '#bbbbee', end: '#0085a1'},
-            };
-            $('#tag_cloud a').tagcloud();
-        })
-    }
-</script>
-
-<!--fastClick.js -->
-<script>
-    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
-        var $nav = document.querySelector("nav");
-        if($nav) FastClick.attach($nav);
-    })
-</script>
-
-
-<!-- Google Analytics -->
-
-
-
-<!-- Baidu Tongji -->
-
-
-
-
-<!-- Side Catalog -->
-
-
-
-
-
-<!-- Image to hack wechat -->
-<img src="/img/apple-touch-icon.png" width="0" height="0" />
-<!-- Migrate from head to bottom, no longer block render and still work -->
-
-</body>
-
-</html>
+    document.documentElement.setAttribute('data-theme', theme)
+    window.localStorage.setItem('theme', theme)
+  })()
+</script> <script type="module">function a(){const e=document.documentElement,n=e.getAttribute("data-theme")==="dark"?"light":"dark";e.classList.add("[&_*]:transition-none"),e.setAttribute("data-theme",n),window.getComputedStyle(e).getPropertyValue("opacity"),requestAnimationFrame(()=>{e.classList.remove("[&_*]:transition-none")}),localStorage.setItem("theme",n)}function o(){document.getElementById("theme-toggle")?.addEventListener("click",a)}o();document.addEventListener("astro:after-swap",()=>{const e=localStorage.getItem("theme")||"light",t=document.documentElement;t.classList.add("[&_*]:transition-none"),window.getComputedStyle(t).getPropertyValue("opacity"),t.setAttribute("data-theme",e),requestAnimationFrame(()=>{t.classList.remove("[&_*]:transition-none")}),o()});</script> </div> </div> </header>   </header> <main id="main-content" class="w-full mx-auto flex grow flex-col gap-y-6 px-4 pb-20 max-w-3xl" tabindex="-1">    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"溪畔听风","url":"http://p0m1se.club/","description":"这是一段简短的博客描述。用于元标签与社交分享。"}</script> <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"溪畔听风","url":"http://p0m1se.club/","description":"这是一段简短的博客描述。用于元标签与社交分享。"}</script>  <section class="relative overflow-hidden rounded-xl border" style="min-height: clamp(280px, 40vh, 400px);"> <!-- 渐变背景 --> <div class="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-background" aria-hidden="true"></div> <!-- 内容 --> <div class="relative z-10 p-8 md:p-12"> <div class="flex flex-col gap-8"> <!-- 主内容 --> <div class="flex-1 min-w-0 space-y-6"> <!-- 标题 --> <div class="space-y-4" style="min-height: clamp(120px, 20vh, 180px);"> <h1 class="text-4xl sm:text-5xl md:text-6xl leading-[1.1] font-bold tracking-tight" style="font-variation-settings: 'wght' 700;">
+欢迎来到<br class="hidden sm:block"> <span class="text-primary">溪畔听风</span> </h1> <p class="text-muted-foreground mt-4 leading-relaxed text-base md:text-lg max-w-xl" style="min-height: 3rem;"> 这是一段简短的博客描述。用于元标签与社交分享。 </p> </div> <!-- 号召性按钮（CTA） --> <div class="flex flex-wrap items-center gap-3 pt-2"> <a href="/blog" target="_self" class="duration-300 ease-in-out inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&#38;_svg]:pointer-events-none [&#38;_svg:not([class*='size-'])]:size-4 shrink-0 [&#38;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-primary text-primary-foreground hover:bg-primary/90 h-10 rounded-md px-6 has-[>svg]:px-4" data-internal-link="true"> 
+阅读博客
+<svg width="1em" height="1em" class="size-4" data-icon="lucide:arrow-right">   <symbol id="ai:lucide:arrow-right" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7-7l7 7l-7 7"/></symbol><use href="#ai:lucide:arrow-right"></use>  </svg>  </a> <a href="/about" target="_self" class="duration-300 ease-in-out inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&#38;_svg]:pointer-events-none [&#38;_svg:not([class*='size-'])]:size-4 shrink-0 [&#38;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 h-10 rounded-md px-6 has-[>svg]:px-4" data-internal-link="true"> 
+关于我
+ </a> </div> <!-- 社交图标 --> <div class="pt-2"> <ul class="flex flex-wrap items-center gap-2" role="list"> <li> <a href="https://github.com/YouRan4" target="_blank" rel="noopener noreferrer" class="duration-300 ease-in-out inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&#38;_svg]:pointer-events-none [&#38;_svg:not([class*='size-'])]:size-4 shrink-0 [&#38;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 size-9 backdrop-blur-sm bg-background/80" aria-label="GitHub" title="GitHub">  <svg width="1em" height="1em" viewBox="0 0 24 24" class="size-4" data-icon="lucide:github">   <use href="#ai:lucide:github"></use>  </svg>  </a> </li> </ul> </div> </div> </div> </div> </section>  <section class="mt-12"> <div class="mb-6 flex items-center justify-between"> <div> <h2 class="text-2xl font-semibold mb-2">最新博客</h2> <p class="text-sm text-muted-foreground">最新洞见与文章</p> </div> <a href="/blog" target="_self" class="duration-300 ease-in-out justify-center whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&#38;_svg]:pointer-events-none [&#38;_svg:not([class*='size-'])]:size-4 shrink-0 [&#38;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 h-9 px-4 py-2 has-[>svg]:px-3 hidden sm:flex items-center gap-1.5" data-internal-link="true"> 
+查看全部
+<svg width="1em" height="1em" viewBox="0 0 24 24" class="size-4" data-icon="lucide:arrow-right">   <use href="#ai:lucide:arrow-right"></use>  </svg>  </a> </div> <div class="space-y-2"> <article> <a href="/blog/amd显卡问题解决方案" target="_self" class="ease-in-out group block py-4 transition-all duration-200 hover:bg-muted/30 -mx-2 px-2 rounded-md" data-internal-link="true">  <div class="flex items-start justify-between gap-4"> <div class="flex-1 min-w-0 space-y-1"> <div class="flex items-baseline gap-2.5"> <h3 class="text-base font-semibold leading-snug group-hover:text-foreground transition-colors"> AMD显卡 </h3> <span class="text-muted-foreground/60 text-xs font-normal whitespace-nowrap shrink-0"> 2025年12月12日 </span> </div> <p class="text-muted-foreground text-sm leading-snug line-clamp-1"> AMD显卡常见问题解决方案 </p> <div class="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-xs text-muted-foreground/80"> <span class="font-medium">YouRan</span> <span class="text-muted-foreground/40">·</span> <span class="flex items-center gap-1"> <svg width="1em" height="1em" class="size-3 text-primary/70" data-icon="lucide:clock">   <symbol id="ai:lucide:clock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="10"/></g></symbol><use href="#ai:lucide:clock"></use>  </svg> 1 分钟阅读 </span>   <span class="text-muted-foreground/40">·</span> <div class="flex flex-wrap items-center gap-1"> <div class="group/tag relative"> <span class="text-[10px] px-1.5 py-0.5 rounded font-medium text-muted-foreground/70 hover:text-foreground transition-colors "> AMD </span>  </div><div class="group/tag relative"> <span class="text-[10px] px-1.5 py-0.5 rounded font-medium text-muted-foreground/70 hover:text-foreground transition-colors "> A卡 </span>  </div> <span class="text-muted-foreground/50 text-[10px]">
++4 </span> </div>  </div> </div> </div>  </a> </article><article> <a href="/blog/obs即时回放设置" target="_self" class="ease-in-out group block py-4 transition-all duration-200 hover:bg-muted/30 -mx-2 px-2 rounded-md" data-internal-link="true">  <div class="flex items-start justify-between gap-4"> <div class="flex-1 min-w-0 space-y-1"> <div class="flex items-baseline gap-2.5"> <h3 class="text-base font-semibold leading-snug group-hover:text-foreground transition-colors"> OBS即时回放设置 </h3> <span class="text-muted-foreground/60 text-xs font-normal whitespace-nowrap shrink-0"> 2025年12月12日 </span> </div> <p class="text-muted-foreground text-sm leading-snug line-clamp-1"> 设置OBS以实现即时回放功能,代替Nvidia显卡驱动中的即时回放功能. </p> <div class="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-xs text-muted-foreground/80"> <span class="font-medium">YouRan</span> <span class="text-muted-foreground/40">·</span> <span class="flex items-center gap-1"> <svg width="1em" height="1em" viewBox="0 0 24 24" class="size-3 text-primary/70" data-icon="lucide:clock">   <use href="#ai:lucide:clock"></use>  </svg> 1 分钟阅读 </span>   <span class="text-muted-foreground/40">·</span> <div class="flex flex-wrap items-center gap-1"> <div class="group/tag relative"> <span class="text-[10px] px-1.5 py-0.5 rounded font-medium text-muted-foreground/70 hover:text-foreground transition-colors "> OBS </span>  </div><div class="group/tag relative"> <span class="text-[10px] px-1.5 py-0.5 rounded font-medium text-muted-foreground/70 hover:text-foreground transition-colors "> 英伟达 </span>  </div> <span class="text-muted-foreground/50 text-[10px]">
++1 </span> </div>  </div> </div> </div>  </a> </article> </div> <article class="mt-2 sm:hidden"> <a href="/blog" target="_self" class="ease-in-out group block py-3 px-2 rounded-md border border-border/50 bg-muted/20 hover:bg-muted/40 hover:border-primary/30 transition-all duration-200" aria-label="查看全部文章" data-internal-link="true">  <div class="flex items-center gap-3"> <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center group-hover:bg-primary/20 dark:group-hover:bg-primary/30 transition-colors" aria-hidden="true"> <svg width="1em" height="1em" class="size-5 text-primary" data-icon="lucide:library">   <symbol id="ai:lucide:library" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m16 6l4 14M12 6v14M8 8v12M4 4v16"/></symbol><use href="#ai:lucide:library"></use>  </svg> </div> <div class="flex-1 min-w-0"> <div class="flex items-center gap-2"> <span class="text-sm font-semibold text-foreground group-hover:text-primary transition-colors">
+查看全部文章
+</span> <svg width="1em" height="1em" viewBox="0 0 24 24" class="size-4 text-primary/70 group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0" aria-hidden="true" data-icon="lucide:arrow-right">   <use href="#ai:lucide:arrow-right"></use>  </svg> </div> <p class="text-xs text-muted-foreground mt-0.5">
+浏览所有文章和教程
+</p> </div> </div>  </a> </article> </section> </main> <footer class="bg-background/80 border-t border-border/50 backdrop-blur-md"> <div class="w-full px-4 py-8 sm:py-10"> <div class="flex flex-col gap-8 max-w-3xl mx-auto"> <!-- 细分隔线 --> <div class="h-px bg-border/30" aria-hidden="true"></div> <!-- 页脚主要内容 --> <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"> <!-- 导航 --> <div> <h4 class="text-sm font-semibold mb-3 text-foreground">导航</h4> <nav class="flex flex-col gap-2"> <a href="/blog" target="_self" class="duration-300 ease-in-out text-sm text-muted-foreground hover:text-primary capitalize transition-colors flex items-center gap-1.5 group" data-internal-link="true">  <span>博客</span>  </a><a href="/about" target="_self" class="duration-300 ease-in-out text-sm text-muted-foreground hover:text-primary capitalize transition-colors flex items-center gap-1.5 group" data-internal-link="true">  <span>关于</span>  </a> </nav> </div> <!-- 法务 --> <div> <h4 class="text-sm font-semibold mb-3 text-foreground">法务</h4> <nav class="flex flex-col gap-2"> <a href="#" target="_self" class="inline-block duration-300 ease-in-out text-sm text-muted-foreground hover:text-primary transition-colors" data-internal-link="true"> 
+隐私政策
+ </a> <a href="#" target="_self" class="inline-block duration-300 ease-in-out text-sm text-muted-foreground hover:text-primary transition-colors" data-internal-link="true"> 
+服务条款
+ </a> </nav> </div> <!-- 联系 --> <div> <h4 class="text-sm font-semibold mb-3 text-foreground">联系</h4> <ul class="flex flex-wrap gap-2" role="list"> <li> <a href="https://github.com/YouRan4" target="_blank" rel="noopener noreferrer" class="duration-300 ease-in-out inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&#38;_svg]:pointer-events-none [&#38;_svg:not([class*='size-'])]:size-4 shrink-0 [&#38;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 size-9" aria-label="GitHub" title="GitHub">  <svg width="1em" height="1em" class="size-4" data-icon="lucide:github">   <symbol id="ai:lucide:github" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5c.08-1.25-.27-2.48-1-3.5c.28-1.15.28-2.35 0-3.5c0 0-1 0-3 1.5c-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5c-.39.49-.68 1.05-.85 1.65S8.93 17.38 9 18v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></g></symbol><use href="#ai:lucide:github"></use>  </svg>  </a> </li> </ul> </div> </div> <!-- 分隔线 --> <div class="h-px bg-border/60" aria-hidden="true"></div> <!-- 底部区域 --> <div class="flex flex-col items-center gap-2 sm:flex-row sm:justify-between text-sm text-muted-foreground"> <div class="text-center sm:text-left">
+&copy; 2025 溪畔听风。保留所有权利。
+</div> <div class="text-xs text-muted-foreground/80"> <span>
+主题：<a href="https://github.com/meroxdotdev/merox-erudite" target="_blank" rel="noopener noreferrer" class="underline hover:text-foreground transition-colors">merox-erudite</a> </span> </div> </div> </div> </div> </footer> <script>(()=>{var e=async t=>{await(await t())()};(self.Astro||(self.Astro={})).load=e;window.dispatchEvent(new Event("astro:load"));})();</script><astro-island uid="23gb6e" prefix="s0" component-url="/_astro/Snowfall.C9MK37gu.js" component-export="default" renderer-url="/_astro/client.D5efgHKX.js" props="{&quot;enabledMonths&quot;:[1,[[0,11],[0,0],[0,1],[0,2]]]}" ssr client="load" opts="{&quot;name&quot;:&quot;Snowfall&quot;,&quot;value&quot;:true}" await-children><canvas id="snow-canvas" class="fixed inset-0 pointer-events-none z-[900]" aria-hidden="true"></canvas><!--astro:end--></astro-island> </body></html>
