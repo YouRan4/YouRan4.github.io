@@ -67,13 +67,6 @@ let subpostCount = 0
 let postReadingTime = '0 min read'
 let combinedReadingTime: string | null = null
 let tocSections: Awaited<ReturnType<typeof getTOCSections>> = []
-
-// 页面数据，用于 GitTalk 配置
-const GITHUB_OWNER = "YouRan4";
-const GITHUB_REPO = "YouRan4.github.io";
-const GITHUB_CLIENT_ID = import.meta.env.GITTALK_CLIENT_ID; // 建议从环境变量获取
-const GITHUB_CLIENT_SECRET = import.meta.env.GITTALK_CLIENT_SECRET; // 建议从环境变量获取
-
 // 获取当前页面的 slug 和 title
 const pageSlug = Astro.url.pathname;
 const pageTitle = post.data.title;
@@ -271,10 +264,6 @@ try {
           <GitTalkComment 
             id={pageSlug}
             title={pageTitle}
-            owner={GITHUB_OWNER}
-            repo={GITHUB_REPO}
-            clientID={GITHUB_CLIENT_ID}
-            clientSecret={GITHUB_CLIENT_SECRET}
             client:load 
         />
         </div>
