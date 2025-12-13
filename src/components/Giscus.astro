@@ -1,31 +1,19 @@
-
 <div class="comments-section">
 </div>
-<script src="https://giscus.app/client.js"
-    data-repo="YouRan4/YouRan4.github.io"
-    data-repo-id="R_kgDOQT4ToQ"
-    data-category="Announcements"
-    data-category-id="DIC_kwDOQT4Toc4CzvK9"
-    data-mapping="og:title"
-    data-strict="0"
-    data-reactions-enabled="1"
-    data-emit-metadata="0"
-    data-input-position="top"
-    data-theme="javascript: (localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')) === 'dark' ? 'noborder_dark' : 'noborder_light'"
-    data-lang="zh-CN"
-    crossorigin="anonymous"
-    async>
-</script>
+
 <script>
+// ----------------------------------------------------
+// 1. Giscus 主题同步函数 (保留原逻辑，用于主题切换和重试)
+// ----------------------------------------------------
 window.syncGiscusTheme = function(theme) {
     const GISCUS_THEME_MAP = {
         "light": "noborder_light",
         "dark": "noborder_dark"
     };
     const giscusTheme = GISCUS_THEME_MAP[theme];
-    if (!giscusTheme) return; 
     const iframe = document.querySelector('iframe.giscus-frame') as HTMLIFrameElement || null;
     if (!iframe) {
+        // 如果 Giscus 还没加载，等待并重试 (关键的重试机制)
         setTimeout(() => window.syncGiscusTheme(theme), 500);
         return;
     }
@@ -42,22 +30,64 @@ window.syncGiscusTheme = function(theme) {
 };
 
 // ----------------------------------------------------
-// 初始同步：一旦 DOM 加载完成，立即强制同步主题。
+// 2. 动态加载 Giscus 脚本函数 (新增的核心逻辑)
 // ----------------------------------------------------
-document.addEventListener('DOMContentLoaded', () => {
-    // 这里的 window 是存在的
-    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
-    window.syncGiscusTheme(currentTheme as "light" | "dark");
+function loadGiscus() {
+    const container = document.querySelector('.comments-section');
+    if (!container) return;
+
+    // 检查是否已经加载过 Giscus 脚本
+    if (container.querySelector('script[src*="giscus.app"]')) {
+        return; 
+    }
+    
+    // 1. 获取当前主题：从 HTML 根元素获取当前主题 (由 ThemeToggle 组件设置)
+    const currentTheme = document.documentElement.getAttribute('data-theme') as "light" | "dark" || 'light' as "light" | "dark";    
+    const GISCUS_THEME_MAP = {
+            light: "noborder_light",
+            dark: "noborder_dark"
+        };
+    const giscusTheme = GISCUS_THEME_MAP[currentTheme] || 'preferred_color_scheme'; // 使用映射后的主题
+
+    // 2. 创建并设置 Giscus 脚本属性
+    const script = document.createElement('script');
+    script.src = "https://giscus.app/client.js";
+    script.setAttribute('data-repo', 'YouRan4/YouRan4.github.io');
+    script.setAttribute('data-repo-id', 'R_kgDOQT4ToQ');
+    script.setAttribute('data-category', 'Announcements');
+    script.setAttribute('data-category-id', 'DIC_kwDOQT4Toc4CzvK9');
+    script.setAttribute('data-mapping', 'og:title');
+    script.setAttribute('data-strict', '0');
+    script.setAttribute('data-reactions-enabled', '1');
+    script.setAttribute('data-emit-metadata', '0');
+    script.setAttribute('data-input-position', 'top');
+    // 🚨 关键：在创建时设置准确的主题，实现零闪烁
+    script.setAttribute('data-theme', giscusTheme); 
+    script.setAttribute('data-lang', 'zh-CN');
+    script.setAttribute('crossorigin', 'anonymous');
+    script.setAttribute('data-loading', 'lazy');
+    script.async = true;
+
+    // 3. 插入脚本到容器
+    container.appendChild(script);
+}
+
+// ----------------------------------------------------x
+// 3. 触发 Giscus 加载和同步 (更新触发点)
+// ----------------------------------------------------
+
+// 移除原有的 DOMContentLoaded 逻辑，现在由 loadGiscus 处理首次加载。
+// 我们让 loadGiscus 函数在 DOM 加载完成后执行。
+
+document.addEventListener('DOMContentLoaded', loadGiscus);
+
+
+// 路由切换同步：处理页面软切换
+document.addEventListener('astro:after-swap', () => {
+    // 在软导航后，如果 Giscus 不存在（被 Astro 移除），则重新加载。
+    // 如果存在，主题切换由 ThemeToggle 里的 syncGiscusTheme 负责。
+    loadGiscus();
 });
 
-// ----------------------------------------------------
-// 路由切换同步：处理页面软切换
-// ----------------------------------------------------
-document.addEventListener('astro:after-swap', () => {
-    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
-    window.syncGiscusTheme(currentTheme as "light" | "dark");
-});
+// 移除静态 Giscus 脚本标签
 </script>
-<style>
-/* ... 样式 ... */
-</style>

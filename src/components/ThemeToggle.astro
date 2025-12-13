@@ -27,6 +27,7 @@ import { Icon } from 'astro-icon/components'
 
     document.documentElement.setAttribute('data-theme', theme)
     window.localStorage.setItem('theme', theme)
+    window.syncGiscusTheme(theme);
   })()
 </script>
 
