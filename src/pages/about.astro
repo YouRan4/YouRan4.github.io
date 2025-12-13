@@ -1,0 +1,44 @@
+---
+import Breadcrumbs from '@/components/Breadcrumbs.astro'
+import PageHead from '@/components/PageHead.astro'
+import Link from '@/components/Link.astro'
+import Layout from '@/layouts/Layout.astro'
+import { Icon } from 'astro-icon/components'
+import { SITE } from '@/consts'
+
+// Person Schema for About page
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": SITE.title,
+  "url": SITE.href,
+  "description": SITE.description
+}
+---
+<Layout class="max-w-3xl" headTitle="关于" headDescription="关于本博客">
+  <PageHead slot="head" title="关于" />
+  
+  <!-- Person Schema for About page SEO -->
+  <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+  
+  <Breadcrumbs items={[{ label: '关于', icon: 'lucide:user' }]} />
+
+  <section class="flex flex-col gap-8">
+    <!-- Header -->
+    <div class="flex flex-col gap-4">
+      <div>
+        <h1 class="text-3xl md:text-4xl font-bold">关于</h1>
+        <p class="text-sm text-muted-foreground font-mono mt-1">
+          了解更多关于本博客的信息
+        </p>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="prose prose-sm dark:prose-invert max-w-none space-y-6">
+      <p class="text-muted-foreground leading-relaxed">
+        欢迎来到 <strong class="text-primary">{SITE.title}</strong>！
+      </p>
+    </div>
+  </section>
+</Layout>

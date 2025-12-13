@@ -1,0 +1,28 @@
+---
+import { SITE } from '@/consts'
+
+interface Props {
+  title?: string
+  description?: string
+  noindex?: boolean
+  fullTitle?: boolean // If true, use title as-is without appending site name
+}
+
+const {
+  title = SITE.title,
+  description: _description, // 未使用，但为保持 API 一致性而保留
+  noindex = false,
+  fullTitle = false,
+} = Astro.props
+---
+
+<!-- 精简的 head 辅助标签，避免与 Head.astro 重复 -->
+{(() => {
+  const docTitle = fullTitle
+    ? title
+    : title && title !== SITE.title
+      ? `${title} - ${SITE.title}`
+      : SITE.title
+  return <title>{docTitle}</title>
+})()}
+{noindex && <meta name="robots" content="noindex, nofollow" />}

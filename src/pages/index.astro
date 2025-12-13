@@ -1,0 +1,157 @@
+---
+import BlogCard from '@/components/BlogCard.astro'
+import Link from '@/components/Link.astro'
+import PageHead from '@/components/PageHead.astro'
+import { buttonVariants } from '@/components/ui/button'
+import Layout from '@/layouts/Layout.astro'
+import { Icon } from 'astro-icon/components'
+import { getRecentPosts } from '@/lib/data-utils'
+import { SOCIAL_LINKS, ICON_MAP, SITE } from '@/consts'
+import type { SocialLink } from '@/types'
+
+// 获取最新文章的错误处理
+let latestPosts: Awaited<ReturnType<typeof getRecentPosts>> = []
+try {
+  latestPosts = await getRecentPosts(2)
+} catch (error) {
+  console.error('Error fetching recent posts:', error)
+}
+
+// 首页 SEO 的 Person 结构化数据
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": SITE.title,
+  "url": SITE.href,
+  "description": SITE.description
+}
+
+// 网站结构化数据
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": SITE.title,
+  "url": SITE.href,
+  "description": SITE.description
+}
+---
+<Layout class="max-w-3xl" transition:persist="home-layout" headTitle={SITE.title} headDescription={SITE.description}>
+  <PageHead slot="head" title={SITE.title} fullTitle={true} />
+  
+  <!-- SEO 的结构化数据标注 -->
+  <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+  
+  <!-- 首屏展示区域 -->
+  <section class="relative overflow-hidden rounded-xl border" style="min-height: clamp(280px, 40vh, 400px);">
+    <!-- 渐变背景 -->
+    <div class="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-background" aria-hidden="true"></div>
+    
+    <!-- 内容 -->
+    <div class="relative z-10 p-8 md:p-12">
+      <div class="flex flex-col gap-8">
+        <!-- 主内容 -->
+        <div class="flex-1 min-w-0 space-y-6">
+          <!-- 标题 -->
+          <div class="space-y-4" style="min-height: clamp(120px, 20vh, 180px);">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl leading-[1.1] font-bold tracking-tight" style="font-variation-settings: 'wght' 700;">
+              欢迎来到<br class="hidden sm:block" />
+              <span class="text-primary">{SITE.title}</span>
+            </h1>
+            <p class="text-muted-foreground mt-4 leading-relaxed text-base md:text-lg max-w-xl" style="min-height: 3rem;">
+              {SITE.description}
+            </p>
+          </div>
+          
+          <!-- 号召性按钮（CTA） -->
+          <div class="flex flex-wrap items-center gap-3 pt-2">
+            <Link href="/blog" class={buttonVariants({ variant: 'default', size: 'lg' })}>
+              阅读博客
+              <Icon name="lucide:arrow-right" class="size-4" />
+            </Link>
+            <Link href="/about" class={buttonVariants({ variant: 'outline', size: 'lg' })}>
+              关于我
+            </Link>
+          </div>
+          
+          <!-- 社交图标 -->
+          <div class="pt-2">
+            <ul class="flex flex-wrap items-center gap-2" role="list">
+              {SOCIAL_LINKS.map(({ href, label }: SocialLink) => (
+                <li>
+                  <Link
+                    href={href}
+                    aria-label={label}
+                    title={label}
+                    class={buttonVariants({ variant: 'outline', size: 'icon' }) + ' backdrop-blur-sm bg-background/80'}
+                    external={href.startsWith('http') || href.startsWith('mailto:')}
+                  >
+                    <Icon
+                      name={
+                        ICON_MAP[label as keyof typeof ICON_MAP] ||
+                        'lucide:message-circle-question'
+                      }
+                      class="size-4"
+                    />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 最新博客 -->
+  {latestPosts && latestPosts.length > 0 && (
+    <section class="mt-12">
+      <div class="mb-6 flex items-center justify-between">
+        <div>
+          <h2 class="text-2xl font-semibold mb-2">最新博客</h2>
+          <p class="text-sm text-muted-foreground">最新洞见与文章</p>
+        </div>
+        <Link 
+          href="/blog" 
+          class={buttonVariants({ variant: 'ghost' }) + ' hidden sm:flex items-center gap-1.5'}
+        >
+          查看全部
+          <Icon name="lucide:arrow-right" class="size-4" />
+        </Link>
+      </div>
+      
+      <div class="space-y-2">
+        {latestPosts.map((post) => (
+          <article>
+            <BlogCard entry={post} />
+          </article>
+        ))}
+      </div>
+      
+      <article class="mt-2 sm:hidden">
+        <Link
+          href="/blog"
+          aria-label="查看全部文章"
+          class="group block py-3 px-2 rounded-md border border-border/50 bg-muted/20 hover:bg-muted/40 hover:border-primary/30 transition-all duration-200"
+        >
+          <div class="flex items-center gap-3">
+            <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center group-hover:bg-primary/20 dark:group-hover:bg-primary/30 transition-colors" aria-hidden="true">
+              <Icon name="lucide:library" class="size-5 text-primary" />
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-semibold text-foreground group-hover:text-primary transition-colors">
+                  查看全部文章
+                </span>
+                <Icon name="lucide:arrow-right" class="size-4 text-primary/70 group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0" aria-hidden="true" />
+              </div>
+              <p class="text-xs text-muted-foreground mt-0.5">
+                浏览所有文章和教程
+              </p>
+            </div>
+          </div>
+        </Link>
+      </article>
+    </section>
+  )}
+</Layout>

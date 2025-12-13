@@ -1,0 +1,163 @@
+---
+title: "开始使用你的新博客"
+description: "这是一份使用 merox-erudite 博客主题的完整上手指南。你将学会如何配置站点、添加内容并个性化你的博客。"
+date: 2025-01-16
+tags: ["getting-started", "tutorial", "setup"]
+draft: false
+---
+
+import Callout from '@/components/Callout.astro'
+
+欢迎来到由 **merox-erudite** 驱动的新博客！本指南将帮助你完成博客的基础设置与个性化定制。
+
+## 初始设置
+
+### 1. 配置站点
+
+在 `src/consts.ts` 中修改站点信息：
+
+```ts
+export const SITE: Site = {
+  title: 'Your Blog Name',
+  description: 'Your blog description',
+  href: 'https://yourdomain.com',
+  author: 'your-author-id',
+  // ...
+}
+```
+
+### 2. 更新导航
+
+在 `src/consts.ts` 中自定义导航链接：
+
+```ts
+export const NAV_LINKS: SocialLink[] = [
+  { href: '/blog', label: 'Blog' },
+  { href: '/about', label: 'About' },
+  // Add more links as needed
+]
+```
+
+### 3. 添加社交链接
+
+更新你的社交媒体地址：
+
+```ts
+export const SOCIAL_LINKS: SocialLink[] = [
+  { href: 'https://github.com/username', label: 'GitHub' },
+  { href: 'https://twitter.com/username', label: 'Twitter' },
+  { href: 'mailto:your@email.com', label: 'Email' },
+]
+```
+
+## 创建内容
+
+### 博客文章
+
+在 `src/content/blog/` 中创建新文章：
+
+1. 为你的文章创建文件夹：`src/content/blog/my-post/`
+2. 新增 `index.mdx` 文件并添加 frontmatter：
+
+```yaml
+---
+title: "My First Post"
+description: "A brief description"
+date: 2025-01-16
+tags: ["tag1", "tag2"]
+draft: false
+---
+```
+
+3. 使用 Markdown 或 MDX 编写正文
+
+<Callout variant="tip">
+**专业提示：** 你可以在文章中使用 MDX 组件（如 Callout、代码块等）来增强排版！
+</Callout>
+
+### 作者档案
+
+在 `src/content/authors/` 中创建作者档案：
+
+```yaml
+---
+name: 'Your Name'
+avatar: 'https://gravatar.com/avatar/...'
+bio: 'Your bio'
+github: 'https://github.com/username'
+---
+```
+
+## 个性化
+
+### 颜色
+
+在 `src/styles/global.css` 中自定义配色方案：
+
+```css
+:root {
+  --primary: hsl(214 95% 52%);
+  /* 自定义其它颜色 */
+}
+```
+
+### 首页经验时间线
+
+在 `src/pages/index.astro` 中自定义你的经验时间线：
+
+```ts
+const experience: ExperienceItem[] = [
+  {
+    role: 'Your Role',
+    company: 'Company Name',
+    period: '2020 - Present',
+    current: true,
+    icon: 'lucide:briefcase',
+    key: '你的成就与职责'
+  },
+]
+```
+
+## 可选功能
+
+### 邮件订阅（Brevo）
+
+1. 注册 [Brevo](https://www.brevo.com/)
+2. 获取你的 API Key
+3. 在 `.env` 中添加：
+   ```env
+   BREVO_API_KEY=your-api-key
+   BREVO_LIST_ID=your-list-id
+   ```
+
+### Disqus 评论
+
+1. 创建 [Disqus](https://disqus.com/) 账户
+2. 在 `.env` 中添加：
+   ```env
+   PUBLIC_DISQUS_SHORTNAME=your-shortname
+   ```
+
+### 站点分析
+
+添加 Google Analytics 或 Umami：
+
+```env
+PUBLIC_GOOGLE_ANALYTICS_ID=G-XXXXXXXXXX
+PUBLIC_UMAMI_WEBSITE_ID=your-umami-id
+```
+
+## 后续步骤
+
+1. **删除示例内容** - 移除 `hello-world` 与 `getting-started` 文章
+2. **更新关于页面** - 自定义 `src/pages/about.astro`
+3. **更新隐私与条款** - 查看并自定义法律页面
+4. **添加你的内容** - 开始撰写博客文章！
+
+## 资源
+
+- [Astro Documentation](https://docs.astro.build/)
+- [MDX Guide](https://mdxjs.com/)
+- [Tailwind CSS](https://tailwindcss.com/docs)
+
+写博愉快！🎉

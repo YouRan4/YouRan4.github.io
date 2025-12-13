@@ -1,0 +1,34 @@
+name: Deploy Astro to GitHub Pages
+
+on:
+  push:
+    branches: ["master"] # 或您部署的主分支
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install
+
+      # 关键步骤：使用 env 注入 secrets
+      - name: Build Astro
+        run: npm run build
+        env:
+          PUBLIC_GITTALK_CLIENT_ID: ${{ secrets.GITALK_CLIENT_ID }}
+          PUBLIC_GITTALK_CLIENT_SECRET: ${{ secrets.GITALK_CLIENT_SECRET }}
+          # 如果您的 Astro 构建需要任何非 PUBLIC 的敏感密钥，也在这里添加
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist # Astro 的默认输出目录
+          # ... 其他部署配置 ...
