@@ -45,6 +45,10 @@ import { Icon } from 'astro-icon/components'
     })
 
     localStorage.setItem('theme', newTheme)
+    // 同步 Giscus 主题
+    if (window.syncGiscusTheme) {
+      window.syncGiscusTheme(newTheme);
+    }
   }
 
   function initThemeToggle() {

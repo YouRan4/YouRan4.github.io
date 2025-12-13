@@ -12,10 +12,10 @@ interface Props {
   class?: string
   hideFloatingSidebar?: boolean
   headTitle?: string
-  headDescription?: string
+  description?: string
 }
 
-const { class: className, hideFloatingSidebar = false, headTitle, headDescription } = Astro.props
+const { class: className, hideFloatingSidebar = false, headTitle, description } = Astro.props
 ---
 
 <!doctype html>
@@ -23,7 +23,7 @@ const { class: className, hideFloatingSidebar = false, headTitle, headDescriptio
   class="bg-background text-foreground scheme-light-dark"
   lang={SITE.locale}
 >
-  <Head title={headTitle} description={headDescription}>
+  <Head title={headTitle} description={description}>
     <slot name="head" />
   </Head>
   <body class="flex h-fit min-h-screen flex-col gap-y-6 font-sans" transition:persist>

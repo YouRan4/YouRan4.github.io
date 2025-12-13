@@ -21,9 +21,6 @@ jobs:
       # 关键步骤：使用 env 注入 secrets
       - name: Build Astro
         run: npm run build
-        env:
-          PUBLIC_GITTALK_CLIENT_ID: ${{ secrets.GITALK_CLIENT_ID }}
-          PUBLIC_GITTALK_CLIENT_SECRET: ${{ secrets.GITALK_CLIENT_SECRET }}
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3

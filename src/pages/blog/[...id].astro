@@ -1,6 +1,6 @@
 ---
 import Breadcrumbs from '@/components/Breadcrumbs.astro'
-import GitTalkComment from '@/components/ui/GitTalkComment.vue'
+import Giscus from '@/components/Giscus.astro';
 import PostHead from '@/components/PostHead.astro'
 import PostNavigation from '@/components/PostNavigation.astro'
 import SubpostsHeader from '@/components/SubpostsHeader.astro'
@@ -68,8 +68,6 @@ let postReadingTime = '0 min read'
 let combinedReadingTime: string | null = null
 let tocSections: Awaited<ReturnType<typeof getTOCSections>> = []
 // 获取当前页面的 slug 和 title
-const pageSlug = Astro.url.pathname;
-const pageTitle = post.data.title;
 
 try {
   navigation = await getAdjacentPosts(currentPostId)
@@ -261,11 +259,7 @@ try {
       /* Only show Disqus on main posts, not subposts */
       !isCurrentSubpost && (
         <div class="col-start-2 mt-12">
-          <GitTalkComment 
-            id={pageSlug}
-            title={pageTitle}
-            client:load 
-        />
+          <Giscus />
         </div>
       )
     }
