@@ -3,7 +3,7 @@ import type { IconMap, SocialLink, Site } from '@/types'
 export const SITE: Site = {
   title: '溪畔听风',
   description:
-    '这是一段简短的博客描述。用于元标签与社交分享。',
+    '答应我，永远快乐。',
   href: 'http://p0m1se.club/',
   author: 'YouRan',
   locale: 'zh-CN',
