@@ -20,7 +20,7 @@ import { pluginLineNumbers } from '@expressive-code/plugin-line-numbers'
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
-  site: 'https://p0m1se.club/', // 请替换为你的站点域名
+  site: 'https://YouRan4.github.io/', // 请替换为你的站点域名
   // Static output - API routes are handled by Cloudflare Pages Functions in /functions folder
   integrations: [
     expressiveCode({
