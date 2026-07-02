@@ -71,9 +71,17 @@ export default defineConfig({
     icon(),
   ],
   vite: {
-    // 由于 Astro 与 @tailwindcss/vite 的插件类型不兼容，这里需要类型断言
-    // 这是 Astro 文档推荐的在 Vite 中使用该插件的方式
-    plugins: [tailwindcss() as any]
+    plugins: [tailwindcss() as any],
+    build: {
+      minify: 'esbuild',
+      cssMinify: true,
+      sourcemap: false,
+      rollupOptions: {
+        output: {
+          manualChunks: undefined,
+        },
+      },
+    },
   },
   server: {
     port: 1234,
