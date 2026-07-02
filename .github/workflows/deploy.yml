@@ -2,29 +2,33 @@ name: Deploy Astro to GitHub Pages
 
 on:
   push:
-    branches: ["master"] # 或您部署的主分支
+    branches: ["master"]
 
 jobs:
-  build_and_deploy:
+  build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: npm
 
-      - name: Install dependencies
-        run: npm install
+      - run: npm install
+      - run: npm run build
 
-      # 关键步骤：使用 env 注入 secrets
-      - name: Build Astro
-        run: npm run build
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - uses: actions/configure-pages@v4
+      - uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist # Astro 的默认输出目录
-          # ... 其他部署配置 ...
+          path: ./dist
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
