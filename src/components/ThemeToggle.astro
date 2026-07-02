@@ -1,5 +1,5 @@
 ---
-import { Button } from '@/components/ui/button'
+import Button from '@/components/ui/Button.vue'
 import { Icon } from 'astro-icon/components'
 ---
 
@@ -27,7 +27,7 @@ import { Icon } from 'astro-icon/components'
 
     document.documentElement.setAttribute('data-theme', theme)
     window.localStorage.setItem('theme', theme)
-    window.syncGiscusTheme(theme);
+    if (typeof window.syncGiscusTheme === 'function') window.syncGiscusTheme(theme);
   })()
 </script>
 
@@ -37,18 +37,11 @@ import { Icon } from 'astro-icon/components'
     const currentTheme = element.getAttribute('data-theme')
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark'
 
-    element.classList.add('[&_*]:transition-none')
     element.setAttribute('data-theme', newTheme)
-    window.getComputedStyle(element).getPropertyValue('opacity')
-
-    requestAnimationFrame(() => {
-      element.classList.remove('[&_*]:transition-none')
-    })
-
     localStorage.setItem('theme', newTheme)
-    // 同步 Giscus 主题
+
     if (window.syncGiscusTheme) {
-      window.syncGiscusTheme(newTheme);
+      window.syncGiscusTheme(newTheme)
     }
   }
 

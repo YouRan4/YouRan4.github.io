@@ -1,13 +1,25 @@
 ---
 import Link from '@/components/Link.astro'
 import ThemeToggle from '@/components/ThemeToggle.astro'
-import MobileMenu from '@/components/ui/mobile-menu'
+import MobileMenu from '@/components/ui/mobile-menu.vue'
+import Search from '@/components/ui/Search.vue'
 import { NAV_LINKS } from '@/consts'
 import { Icon } from 'astro-icon/components'
+import { getAllPostsAndSubposts } from '@/lib/data-utils'
+import { formatDate } from '@/lib/utils'
 
 const isExternalLink = (href: string) => {
   return href.startsWith('http')
 }
+
+const allPosts = await getAllPostsAndSubposts()
+const searchPosts = allPosts.map((post) => ({
+  id: post.id,
+  title: post.data.title,
+  description: post.data.description,
+  date: formatDate(post.data.date),
+  tags: post.data.tags || [],
+}))
 ---
 
 <header class="bg-background/50 sticky top-0 z-[1000] backdrop-blur-md" transition:persist>
@@ -61,6 +73,7 @@ const isExternalLink = (href: string) => {
           )
         })}
       </nav>
+      <Search posts={searchPosts} client:idle />
       <div class="hidden h-6 w-px bg-border/60 md:block" aria-hidden="true"></div>
       <MobileMenu client:idle transition:persist />
       <ThemeToggle transition:persist />

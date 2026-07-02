@@ -8,7 +8,7 @@ import SubpostsSidebar from '@/components/SubpostsSidebar.astro'
 import TOCHeader from '@/components/TOCHeader.astro'
 import TOCSidebar from '@/components/TOCSidebar.astro'
 import { badgeVariants } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
+import Button from '@/components/ui/Button.vue'
 import Layout from '@/layouts/Layout.astro'
 import { SITE } from '@/consts'
 import {
@@ -281,27 +281,36 @@ try {
     />
   </Button>
 
+  <div id="lightbox" class="fixed inset-0 z-[99999] hidden flex items-center justify-center bg-black/70 backdrop-blur-sm">
+    <button id="lightbox-close" class="absolute top-4 right-4 text-white/70 hover:text-white size-8 flex items-center justify-center rounded-full bg-black/30 hover:bg-black/50 transition-colors">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <img id="lightbox-img" class="max-h-[90vh] max-w-[90vw] rounded-lg shadow-2xl" alt="" />
+  </div>
+
   <script>
-    document.addEventListener('astro:page-load', () => {
-      const scrollToTopButton = document.getElementById('scroll-to-top')
-      const footer = document.querySelector('footer')
+    function initLightbox() {
+      const lightbox = document.getElementById('lightbox')!
+      const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement
+      const closeBtn = document.getElementById('lightbox-close')!
+      if (!lightbox || !lightboxImg || !closeBtn) return
 
-      if (scrollToTopButton && footer) {
-        scrollToTopButton.addEventListener('click', () => {
-          window.scrollTo({ top: 0, behavior: 'smooth' })
+      const close = () => lightbox.classList.add('hidden')
+      closeBtn.addEventListener('click', close)
+      lightbox.addEventListener('click', (e) => { if (e.target === lightbox) close() })
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close() })
+
+      document.querySelectorAll<HTMLImageElement>('.prose img').forEach((img) => {
+        img.style.cursor = 'zoom-in'
+        img.addEventListener('click', () => {
+          lightboxImg.src = img.getAttribute('src') || ''
+          lightboxImg.alt = img.getAttribute('alt') || ''
+          lightbox.classList.remove('hidden')
         })
-
-        window.addEventListener('scroll', () => {
-          const footerRect = footer.getBoundingClientRect()
-          const isFooterVisible = footerRect.top <= window.innerHeight
-
-          scrollToTopButton.classList.toggle(
-            'hidden',
-            window.scrollY <= 300 || isFooterVisible,
-          )
-        })
-      }
-    })
+      })
+    }
+    document.addEventListener('astro:page-load', initLightbox)
+    document.addEventListener('astro:after-swap', initLightbox)
   </script>
 </Layout>
 

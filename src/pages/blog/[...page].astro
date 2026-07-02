@@ -2,7 +2,7 @@
 import BlogCard from '@/components/BlogCard.astro'
 import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import PageHead from '@/components/PageHead.astro'
-import PaginationComponent from '@/components/ui/pagination'
+import PaginationComponent from '@/components/ui/pagination.vue'
 import { SITE } from '@/consts'
 import Layout from '@/layouts/Layout.astro'
 import { getAllPosts, groupPostsByYear } from '@/lib/data-utils'
@@ -40,8 +40,8 @@ const years = Object.keys(postsByYear).sort((a, b) => parseInt(b) - parseInt(a))
             {year}
           </div>
           <ul class="flex flex-col gap-2">
-            {postsByYear[year].map((post) => (
-              <li>
+            {postsByYear[year].map((post, index) => (
+              <li class="animate-on-scroll opacity-0 translate-y-4 transition-all duration-500 ease-out" style={`transition-delay:${index * 80}ms`}>
                 <BlogCard entry={post} />
               </li>
             ))}
@@ -60,3 +60,24 @@ const years = Object.keys(postsByYear).sort((a, b) => parseInt(b) - parseInt(a))
     />
   </div>
 </Layout>
+
+<script>
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.remove('opacity-0', 'translate-y-4')
+          observer.unobserve(e.target)
+        }
+      })
+    },
+    { rootMargin: '0px 0px -60px 0px' },
+  )
+
+  function init() {
+    document.querySelectorAll('.animate-on-scroll').forEach((el) => observer.observe(el))
+  }
+
+  init()
+  document.addEventListener('astro:after-swap', init)
+</script>

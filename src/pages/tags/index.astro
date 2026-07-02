@@ -2,12 +2,22 @@
 import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import Link from '@/components/Link.astro'
 import PageHead from '@/components/PageHead.astro'
-import { badgeVariants } from '@/components/ui/badge'
 import Layout from '@/layouts/Layout.astro'
 import { getSortedTags } from '@/lib/data-utils'
 import { Icon } from 'astro-icon/components'
 
 const sortedTags = await getSortedTags()
+const maxCount = Math.max(...sortedTags.map((t) => t.count), 1)
+
+function tagScale(count: number): number {
+  if (maxCount === 1) return 1
+  return 0.8 + (count / maxCount) * 0.6
+}
+
+function tagWeight(count: number): number {
+  if (maxCount === 1) return 400
+  return Math.round(400 + (count / maxCount) * 300)
+}
 ---
 
 <Layout class="max-w-3xl" headTitle="标签" headDescription="浏览标签">
@@ -15,18 +25,25 @@ const sortedTags = await getSortedTags()
   <Breadcrumbs items={[{ label: '标签', icon: 'lucide:tags' }]} />
 
   <div class="flex flex-col gap-4">
-    <div class="flex flex-wrap gap-2">
+    <div class="flex flex-wrap items-center gap-3">
       {
-        sortedTags.map(({ tag, count }) => (
-          <Link
-            href={`/tags/${tag}`}
-            class={badgeVariants({ variant: 'muted' })}
-          >
-            <Icon name="lucide:hash" class="size-3" />
-            {tag}
-            <span class="text-muted-foreground ml-1.5">({count})</span>
-          </Link>
-        ))
+        sortedTags.map(({ tag, count }) => {
+          const scale = tagScale(count)
+          const weight = tagWeight(count)
+          return (
+            <a
+              href={`/tags/${tag}`}
+              class="inline-flex items-center gap-1.5 rounded-full border border-border/60 px-3 py-1.5 transition-colors hover:bg-muted hover:border-foreground/20"
+              style={`font-size:${scale}rem;font-weight:${weight}`}
+            >
+              <Icon name="lucide:hash" class="size-3" />
+              {tag}
+              <span class="text-muted-foreground/60 ml-0.5" style={`font-size:${Math.max(scale - 0.15, 0.65)}rem`}>
+                {count}
+              </span>
+            </a>
+          )
+        })
       }
     </div>
   </div>

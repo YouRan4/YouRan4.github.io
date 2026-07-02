@@ -7,7 +7,7 @@ import Head from '@/components/Head.astro'
 import Header from '@/components/Header.astro'
 import { SITE } from '@/consts'
 import { cn } from '@/lib/utils'
-
+import ClientRouter from 'astro/components/ClientRouter.astro'
 interface Props {
   class?: string
   hideFloatingSidebar?: boolean
@@ -26,8 +26,16 @@ const { class: className, hideFloatingSidebar = false, headTitle, headDescriptio
   <Head title={headTitle} description={headDescription}>
     <slot name="head" />
   </Head>
+  <style>
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+  </style>
+  <ClientRouter />
   <body class="flex h-fit min-h-screen flex-col gap-y-6 font-sans" transition:persist>
-    <!-- Skip to main content link for accessibility -->
+
+
     <a
       href="#main-content"
       class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-primary focus:text-primary-foreground focus:rounded-md focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
@@ -35,32 +43,27 @@ const { class: className, hideFloatingSidebar = false, headTitle, headDescriptio
     >
       跳转到主内容
     </a>
-    
-    <!-- Prevent same-page navigation to avoid unnecessary transitions -->
+
     <script is:inline>
       (function() {
         if (window.__preventSamePageNav) return
         window.__preventSamePageNav = true
-        
+
         function normalizePath(path) {
           return path ? path.split('#')[0].replace(/\/$/, '') || '/' : '/'
         }
-        
+
         function shouldPreventNavigation(link) {
           if (!link) return false
-          
           const href = link.getAttribute('href')
           if (!href || href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:')) {
             return false
           }
-          
           const currentPath = normalizePath(window.location.pathname)
           const targetPath = normalizePath(href)
-          
           return currentPath === targetPath && !href.includes('#')
         }
-        
-        // Handle touch events first (mobile) - must be non-passive to prevent default
+
         function handleTouchStart(e) {
           const link = e.target.closest('a[data-internal-link="true"]')
           if (link && shouldPreventNavigation(link)) {
@@ -70,8 +73,7 @@ const { class: className, hideFloatingSidebar = false, headTitle, headDescriptio
             return false
           }
         }
-        
-        // Handle click events (desktop and mobile fallback)
+
         function handleClick(e) {
           const link = e.target.closest('a[data-internal-link="true"]')
           if (link && shouldPreventNavigation(link)) {
@@ -81,13 +83,12 @@ const { class: className, hideFloatingSidebar = false, headTitle, headDescriptio
             return false
           }
         }
-        
-        // Use capture phase to intercept before Astro's view transitions
-        // Touch events must be non-passive to allow preventDefault
+
         document.addEventListener('touchstart', handleTouchStart, { passive: false, capture: true })
         document.addEventListener('click', handleClick, true)
       })()
     </script>
+
     <header
       class="bg-background/50 sticky top-0 z-50 backdrop-blur-sm xl:backdrop-blur-none xl:bg-transparent divide-y divide-border xl:divide-none"
     >
@@ -99,10 +100,84 @@ const { class: className, hideFloatingSidebar = false, headTitle, headDescriptio
       id="main-content"
       class={cn('w-full mx-auto flex grow flex-col gap-y-6 px-4 pb-20', className)}
       tabindex="-1"
+
     >
       <slot />
     </main>
     <Footer />
     <Snowfall client:load enabledMonths={SITE.winterThemeMonths} />
+
+    <script>
+      const progressBar = document.createElement('div')
+      progressBar.id = 'reading-progress'
+      progressBar.className = 'fixed top-0 left-0 z-[99999] h-[3px] bg-primary/70 transition-[width] duration-100 ease-linear'
+      progressBar.style.width = '0%'
+      document.body.prepend(progressBar)
+      function updateProgress() {
+        const scrollTop = window.scrollY
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight
+        if (docHeight > 0) {
+          const progress = Math.min((scrollTop / docHeight) * 100, 100)
+          progressBar.style.width = progress + '%'
+        } else {
+          progressBar.style.width = '0%'
+        }
+      }
+      window.addEventListener('scroll', updateProgress, { passive: true })
+      window.addEventListener('resize', updateProgress, { passive: true })
+      updateProgress()
+    </script>
+
+    <script>
+      function initTOCs() {
+        const ctls = (window as any).__tocCtl
+        if (ctls) ctls.forEach((c: any) => { c.cleanup?.(); setTimeout(() => c.init?.(), 0) })
+      }
+      initTOCs()
+      document.addEventListener('astro:after-swap', initTOCs)
+      document.addEventListener('astro:before-swap', () => {
+        const ctls = (window as any).__tocCtl
+        if (ctls) ctls.forEach((c: any) => c.cleanup?.())
+      })
+    </script>
+
+    <script>
+      document.querySelectorAll('pre').forEach((pre) => {
+        const btn = document.createElement('button')
+        btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>'
+        btn.setAttribute('aria-label', '复制代码')
+        btn.className = 'absolute top-2 right-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-background border border-border rounded-md px-2 py-1.5 text-muted-foreground hover:text-foreground hover:bg-muted text-xs cursor-pointer'
+        pre.style.position = 'relative'
+        pre.classList.add('group')
+        pre.appendChild(btn)
+
+        btn.addEventListener('click', async () => {
+          const code = pre.querySelector('code')
+          if (!code) return
+          try {
+            await navigator.clipboard.writeText(code.textContent || '')
+            btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>'
+            setTimeout(() => {
+              btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>'
+            }, 2000)
+          } catch {
+            btn.textContent = '失败'
+          }
+        })
+      })
+    </script>
+
+    <script>
+      console.log(
+        `%c🐾 溪畔听风 %c\n\n%c 答应我，永远快乐。 \n\n%c📝 Blog: youran4.github.io\n%c🐙 GitHub: github.com/YouRan4\n%c☕ 如果觉得有用，请我喝杯咖啡吧 \n`,
+        'font-size:24px;font-weight:bold;color:#5b9aff',
+        '',
+        'font-size:14px;color:#888',
+        'font-size:12px;color:#aaa',
+        'font-size:12px;color:#aaa',
+        'font-size:12px;color:#aaa',
+      )
+    </script>
+
   </body>
 </html>

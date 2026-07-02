@@ -1,44 +1,125 @@
 ---
 import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import PageHead from '@/components/PageHead.astro'
-import Link from '@/components/Link.astro'
 import Layout from '@/layouts/Layout.astro'
 import { Icon } from 'astro-icon/components'
 import { SITE } from '@/consts'
 
-// Person Schema for About page
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
   "name": SITE.title,
   "url": SITE.href,
-  "description": SITE.description
+  "description": SITE.description,
 }
+
+const repos = [
+  { name: "Proxy", description: "代理配置文件", language: "JavaScript", stars: 1, url: "https://github.com/YouRan4/Proxy" },
+  { name: "YouRan4.github.io", description: "Blog", language: "Astro", stars: 0, url: "https://github.com/YouRan4/YouRan4.github.io" },
+]
 ---
+
 <Layout class="max-w-3xl" headTitle="关于" headDescription="关于本博客">
   <PageHead slot="head" title="关于" />
-  
-  <!-- Person Schema for About page SEO -->
+
   <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
-  
+
   <Breadcrumbs items={[{ label: '关于', icon: 'lucide:user' }]} />
 
-  <section class="flex flex-col gap-8">
-    <!-- Header -->
+  <section class="flex flex-col gap-10">
     <div class="flex flex-col gap-4">
       <div>
         <h1 class="text-3xl md:text-4xl font-bold">关于</h1>
         <p class="text-sm text-muted-foreground font-mono mt-1">
-          了解更多关于本博客的信息
+          {SITE.description}
         </p>
       </div>
     </div>
 
-    <!-- Main Content -->
-    <div class="prose prose-sm dark:prose-invert max-w-none space-y-6">
-      <p class="text-muted-foreground leading-relaxed">
-        欢迎来到 <strong class="text-primary">{SITE.title}</strong>！
+    <div class="flex flex-col gap-6">
+      <div class="flex items-center gap-4">
+        <img
+          src="https://avatars.githubusercontent.com/u/68091576?v=4"
+          alt="avatar"
+          class="size-16 rounded-full ring-2 ring-border"
+          width="64"
+          height="64"
+        />
+        <div>
+          <h2 class="text-lg font-semibold">{SITE.title}</h2>
+          <a
+            href="https://github.com/YouRan4"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-sm text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1"
+          >
+            <Icon name="lucide:github" class="size-4" />
+            YouRan4
+          </a>
+        </div>
+      </div>
+
+      <p class="text-sm text-muted-foreground leading-relaxed">
+        欢迎来到 <strong class="text-primary">{SITE.title}</strong>！这里记录了一些技术笔记和日常分享。
       </p>
+
+      <div class="grid grid-cols-3 gap-3">
+        <div class="bg-muted/50 rounded-lg px-4 py-3 text-center">
+          <span class="block text-lg font-semibold">2</span>
+          <span class="text-xs text-muted-foreground">公开仓库</span>
+        </div>
+        <div class="bg-muted/50 rounded-lg px-4 py-3 text-center">
+          <span class="block text-lg font-semibold">0</span>
+          <span class="text-xs text-muted-foreground">关注者</span>
+        </div>
+        <div class="bg-muted/50 rounded-lg px-4 py-3 text-center">
+          <span class="block text-lg font-semibold">2020</span>
+          <span class="text-xs text-muted-foreground">加入时间</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-4">
+      <h2 class="text-lg font-semibold flex items-center gap-2">
+        <Icon name="lucide:folder-git-2" class="size-5 text-primary" />
+        GitHub 仓库
+      </h2>
+      <div class="flex flex-col gap-2">
+        {
+          repos.map((repo) => (
+            <a
+              href={repo.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex items-center justify-between gap-4 rounded-lg border border-border/60 px-4 py-3 transition-colors hover:bg-muted/50"
+            >
+              <div class="flex items-center gap-3 min-w-0">
+                <Icon name="lucide:book-open" class="size-4 shrink-0 text-muted-foreground/70" />
+                <div class="min-w-0">
+                  <span class="text-sm font-medium">{repo.name}</span>
+                  <p class="text-xs text-muted-foreground truncate">{repo.description}</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-3 shrink-0">
+                {
+                  repo.language && (
+                    <span class="text-xs text-muted-foreground/70">{repo.language}</span>
+                  )
+                }
+                {
+                  repo.stars > 0 && (
+                    <span class="text-xs text-muted-foreground/70 flex items-center gap-1">
+                      <Icon name="lucide:star" class="size-3" />
+                      {repo.stars}
+                    </span>
+                  )
+                }
+                <Icon name="lucide:external-link" class="size-3.5 text-muted-foreground/50" />
+              </div>
+            </a>
+          ))
+        }
+      </div>
     </div>
   </section>
 </Layout>

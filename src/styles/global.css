@@ -41,23 +41,23 @@
 }
 
 :root {
-  --background: hsl(0 0% 100%);
-  --header-background: hsl(0 0% 89%);
-  --foreground: hsl(0 0% 3.9%);
-  --primary: hsl(214 95% 52%);
+  --background: hsl(38 12% 92%);
+  --header-background: hsl(38 10% 85%);
+  --foreground: hsl(0 0% 20%);
+  --primary: hsl(214 85% 44%);
   --primary-foreground: hsl(0 0% 98%);
-  --secondary: hsl(0 0% 80.1%);
-  --secondary-foreground: hsl(0 0% 9%);
-  --muted: hsl(0 0% 80.1%);
-  --muted-foreground: hsl(0 0% 40%); /* Improved contrast from 45.1% to 40% */
-  --accent: hsl(217 91% 96%);
-  --accent-foreground: hsl(217 91% 20%);
-  --additive: hsl(112 50% 36%);
+  --secondary: hsl(38 8% 78%);
+  --secondary-foreground: hsl(0 0% 15%);
+  --muted: hsl(38 10% 86%);
+  --muted-foreground: hsl(0 0% 45%);
+  --accent: hsl(214 40% 90%);
+  --accent-foreground: hsl(214 50% 25%);
+  --additive: hsl(112 45% 32%);
   --additive-foreground: hsl(0 0% 9%);
-  --destructive: hsl(0 84.2% 60.2%);
+  --destructive: hsl(0 75% 50%);
   --destructive-foreground: hsl(0 0% 98%);
-  --border: hsl(0 0% 89.8%);
-  --ring: hsl(214 95% 52%);
+  --border: hsl(38 8% 78%);
+  --ring: hsl(214 85% 44%);
 }
 
 [data-theme='dark'] {
@@ -226,6 +226,15 @@
 @supports (backdrop-filter: blur(1px)) {
   .bg-radial-gradient {
     background: radial-gradient(ellipse at center, transparent 0%, var(--background) 100%);
+  }
+}
+
+*, *::before, *::after {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.15s ease, box-shadow 0.2s ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition: none;
   }
 }
 
