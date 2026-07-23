@@ -1,0 +1,154 @@
+---
+title: "OptiWin v1.4.1 发布：Windows 系统个性化调整工具箱全新升级"
+description: "OptiWin 是一款适用于 Windows 系统的个性化调整工具箱，基于 meetrevision/revision-tool 二次开发。本次 v1.4.1 更新带来了 PowerShell 脚本体系重构、Game Bar 功能升级等重要改进。"
+date: 2026-07-23
+tags: ["windows", "optimization", "release", "utility"]
+draft: false
+---
+
+import Callout from '@/components/Callout.astro'
+
+## 项目简介
+
+OptiWin 是一款适用于 Windows 系统的个性化调整工具箱，基于 [meetrevision/revision-tool](https://github.com/meetrevision/revision-tool) 二次开发。采用 Go + Wails 后端与 Vue 3 + Naive UI 前端技术栈，提供现代化的界面和便捷的系统优化体验。
+
+## 版本信息
+
+| 项目 | 详情 |
+|------|------|
+| **版本号** | v1.4.1 |
+| **发布日期** | 2026年7月23日 |
+| **发布类型** | 稳定版 |
+| **开源协议** | GPL-3.0 |
+
+## 下载
+
+<Callout type="info">
+**下载 OptiWin v1.4.1**
+
+- **下载链接**: [下载 OptiWin-v1.4.1.exe](/asset/OptiWin-v1.4.1.exe)
+- **文件大小**: 约 15MB（Windows x64）
+- **系统要求**: Windows 10/11 x64
+</Callout>
+
+## 软件截图
+
+<div class="grid grid-cols-2 md:grid-cols-3 gap-4 my-8">
+  <img src="/asset/optiwin-screenshots/home.png" alt="首页" class="rounded-lg border shadow-sm hover:shadow-md transition-shadow" />
+  <img src="/asset/optiwin-screenshots/security.png" alt="安全" class="rounded-lg border shadow-sm hover:shadow-md transition-shadow" />
+  <img src="/asset/optiwin-screenshots/performance.png" alt="性能" class="rounded-lg border shadow-sm hover:shadow-md transition-shadow" />
+  <img src="/asset/optiwin-screenshots/personalization.png" alt="个性化" class="rounded-lg border shadow-sm hover:shadow-md transition-shadow" />
+  <img src="/asset/optiwin-screenshots/tools.png" alt="实用工具" class="rounded-lg border shadow-sm hover:shadow-md transition-shadow" />
+  <img src="/asset/optiwin-screenshots/update.png" alt="更新" class="rounded-lg border shadow-sm hover:shadow-md transition-shadow" />
+</div>
+
+## 功能模块
+
+### 🏠 首页
+- 项目信息展示
+- 系统信息实时显示（OS / CPU / 内存 / IP）
+
+### 🔒 安全
+- Windows Defender 引擎禁用/服务禁用/恢复
+- UAC 设置管理
+- VBS（虚拟化安全）开关
+- 内存完整性控制
+
+### ⚡ 性能
+- 电源计划优化
+- C-State 控制
+- Superfetch 管理
+- 内存压缩开关
+- 全屏优化设置
+- 窗口优化调整
+- MPO（多平面优化）控制
+- 着色器缓存管理
+- Xbox 服务（Game Bar）独立控制
+
+### 🎨 个性化
+- 通知系统管理
+- 气球通知开关
+- 边缘滑动设置
+- 上下文菜单自定义
+- Explorer 主页和图库配置
+- 快捷方式外观调整
+- Win11 新版任务管理器开关
+
+### 🛠️ 实用工具
+- 休眠功能管理
+- 快速启动开关
+- 照片查看器恢复
+- Edge 浏览器卸载
+- WebView2 管理
+- 安全模式启动
+- 进入 BIOS 快捷方式
+
+### 🔄 更新
+- 证书更新管理
+- KGL 更新控制
+- 暂停更新功能
+- 隐藏更新页面
+- 驱动更新策略
+- 更新通道切换
+
+## 更新日志
+
+### v1.4.1 (2026-07-23)
+- Execute/SuperExecute 增加循环删除、日志记录
+- Defender 操作增加成功/失败通知
+- 新增多语言国际化键
+
+### v1.4.0 (2026-07-22)
+- 新增 Win11 任务管理器切换功能
+- 新增 Game Bar 独立开关
+- 全局图标支持（Lucide 图标库）
+- 优化 UI 交互体验
+
+### v1.3.3 (2026-07-22)
+- 修复 Windows 安全中心无法正常开关
+- 修复卸载 Edge 导致 WebView 不可用
+
+### v1.3.2 (2026-07-21)
+- Bug 修复与稳定性改进
+
+### v1.3 (2026-07-21)
+- 布局优化，新增多语言适配
+- 修复功能性 Bug
+
+### v1.2 (2026-07-20)
+- 完整功能发布，包含安全、性能、个性化、实用工具和更新管理
+
+### v1.1.1 (2026-07-20)
+- 性能优化与 Bug 修复
+
+### v1.0 (2026-07-20)
+- 首次正式发布
+
+## 技术栈
+
+| 层 | 技术 |
+|---|------|
+| 后端 | Go + Wails |
+| 前端 | Vue 3 + Naive UI + Lucide |
+| 注册表 | golang.org/x/sys/windows/registry |
+| 脚本 | PowerShell 5.1+ |
+
+## 鸣谢
+
+- **[PowerRun](https://www.sordum.org/81912/run-as-trustedinstaller-program-v1-6/)** — TrustedInstaller 权限执行工具
+- **[ionuttbara/windows-defender-remover](https://github.com/ionuttbara/windows-defender-remover)** — Defender 禁用方案参考
+- **[Lucide](https://lucide.dev/)** — 开源图标库
+
+## 相关链接
+
+<Callout type="info">
+**获取帮助与反馈**
+
+- **GitHub 仓库**: [YouRan4/OptiWin](https://github.com/YouRan4/OptiWin)
+- **提交问题**: [GitHub Issues](https://github.com/YouRan4/OptiWin/issues)
+- **开源协议**: [GPL-3.0](https://github.com/YouRan4/OptiWin/blob/master/LICENSE)
+</Callout>
+
+---
+
+*OptiWin - 让 Windows 系统个性化调整变得简单高效*
