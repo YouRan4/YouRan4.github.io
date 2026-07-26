@@ -1,0 +1,502 @@
+---
+title: "记一次用 GoLang 在Windows平台中获取TrustedInstaller令牌"
+description: "深入解析如何在 Go 中以管理员身份获取 TrustedInstaller 令牌并创建特权进程。包含 Windows 安全模型基础、与 PowerRun/NSudo 的方案对比、以及开发过程中踩过的 8 个坑。"
+date: 2026-07-27
+tags: ["windows", "security", "go", "privilege", "trustedinstaller"]
+draft: false
+---
+
+OptiWin 需要以 TrustedInstaller（TI）身份执行操作——禁用 Defender 服务、修改受保护的注册表项。这不是"以管理员身份运行"就能做到的，它需要拿到 TI 的**令牌**。
+
+本文记录了在 Go 中获取 TI 令牌的完整技术方案，以及与 PowerRun、NSudo 等工具的方案对比。
+
+---
+
+## Windows 安全模型基础
+
+如果你已经熟悉 Windows 安全模型，可以跳过这一节。
+
+### 令牌（Token）
+
+每个 Windows 进程启动时，内核给它分配一个 `ACCESS_TOKEN`，代表这个进程的安全身份。后续所有操作——打开文件、访问注册表、访问其他进程——都基于这个令牌进行权限检查。
+
+令牌里包含：
+- **用户 SID**（SID 是 Windows 内部标识账户的唯一标识符，类似数据库主键）
+- **组 SID 列表**（该用户属于哪些组）
+- **特权列表**（该进程持有的特殊权限，如 `SeDebugPrivilege`）
+- **完整性级别**（Low / Medium / High / System）
+
+在 Go 中，`windows.Token` 是一个 Handle，指向内核中的 token 对象。操作令牌的常见 API：
+
+- `OpenProcessToken` — 拿到指定进程的令牌 Handle
+- `DuplicateTokenEx` — 从一个令牌 Handle 创建新的 Handle（可以指定新令牌的权限、类型）
+- `GetTokenInformation` — 查询令牌内部信息（如特权列表）
+
+### DACL（自主访问控制列表）
+
+每个安全对象（文件、注册表键、进程、令牌等）都挂着一个 DACL。DACL 是一组 ACE（访问控制项）的列表，每条 ACE 的格式是：
+
+```
+ACE = { 允许/拒绝, SID(谁), 权限集合(能做什么) }
+```
+
+当你的进程调用 `OpenProcess`、`OpenProcessToken`、`CreateFile` 等函数时，**内核**会检查你令牌中的 SID 是否匹配目标对象 DACL 中的"允许"条目。不匹配就返回 `ERROR_ACCESS_DENIED`。
+
+**DACL 检查是内核强制执行的**，应用层无法绕过。唯一能绕过 DACL 的是特定的特权。
+
+### 特权（Privilege）
+
+特权是令牌中的独立字段，与 DACL 不同。特权允许执行某些"特殊操作"，而 DACL 控制"能否访问某个对象"。
+
+几个关键特权：
+
+| 特权 | 作用 |
+|------|------|
+| `SeDebugPrivilege` | `OpenProcess` 可以绕过目标**进程**的 DACL，打开任何进程 |
+| `SeImpersonatePrivilege` | 可以使用 `ImpersonateLoggedOnUser` 进行令牌模拟 |
+| `SeTcbPrivilege` | 可以调用 `CreateProcessAsUser`（管理员**没有**此特权） |
+| `SeIncreaseQuotaPrivilege` | 某些进程创建操作需要 |
+
+管理员的令牌**持有**这些特权，但**默认未激活**。必须通过 `AdjustTokenPrivileges` 显式启用。
+
+### PPL（Protected Process Light）
+
+PPL 是 Windows 8.1 引入的进程保护机制。PPL 进程的 DACL 会拒绝非 SYSTEM 进程的大部分访问，即使调用方有 `SeDebugPrivilege`：
+
+| 进程类型 | SeDebugPrivilege 能拿到 | 例子 |
+|---------|----------------------|------|
+| 普通进程 | `PROCESS_QUERY_INFORMATION` | 大多数应用 |
+| PPL 进程 | `PROCESS_QUERY_LIMITED_INFORMATION` | `MsMpEng.exe`（Defender） |
+| TI 进程 | `PROCESS_QUERY_INFORMATION` | `TrustedInstaller.exe` |
+
+TrustedInstaller.exe **不是 PPL**，所以 `SeDebugPrivilege` 足以打开它的完整句柄。
+
+### 两个 DACL —— 本方案的关键
+
+`OpenProcessToken` 需要经过**两个独立的 DACL 检查**：
+
+| DACL 所属对象 | 控制什么 | SeDebugPrivilege 能否绕过 |
+|-------------|---------|:---------------------:|
+| 目标**进程**的 DACL | `OpenProcess` 能否拿到进程 Handle | ✅ 能 |
+| 目标**令牌**的 DACL | `OpenProcessToken` 能否拿到指定权限的令牌 Handle | ❌ 不能 |
+
+**这是理解整个方案的关键**：SeDebugPrivilege 能让我们打开 TI 进程拿到进程 Handle，但 TI 令牌的 DACL 会拒绝管理员请求 `TOKEN_DUPLICATE` 权限。
+
+---
+
+## 核心难题
+
+TrustedInstaller.exe 进程的令牌 DACL：
+
+| 账户 | TOKEN_QUERY（查询信息） | TOKEN_DUPLICATE（复制令牌） | TOKEN_ASSIGN_PRIMARY |
+|------|:---------------------:|:--------------------------:|:-------------------:|
+| NT AUTHORITY\SYSTEM | ✅ | ✅ | ✅ |
+| Administrators | ✅ | ❌ | ❌ |
+
+管理员能调用 `OpenProcessToken` 拿到 `TOKEN_QUERY` Handle（可以查询令牌信息），但拿不到 `TOKEN_DUPLICATE`（无法复制令牌）。
+
+后续步骤：
+1. `DuplicateTokenEx` — 需要源 Handle 有 `TOKEN_DUPLICATE` → ❌ 无法执行
+2. `CreateProcessWithTokenW` — 需要 Primary 类型令牌 → ❌ 无法获得
+
+**我们不能以管理员身份直接从 TI 令牌拿到可用的复制权限。**
+
+---
+
+## PowerRun/NSudo 的方案：句柄枚举
+
+PowerRun 和 NSudo 使用 `NtQuerySystemInformation` 枚举系统句柄表来获取 TI 令牌。
+
+### 原理
+
+1. **枚举系统句柄表**：`NtQuerySystemInformation(SystemHandleInformation)` 让内核返回当前所有进程的所有句柄的列表，每条记录包含 `(进程PID, 对象类型, 句柄值, 对象地址, 访问权限)`。
+
+2. **找到 TI 进程持有的令牌句柄**：过滤 PID == TI 的 PID，ObjectType == Token。TI 进程自己持有自己令牌的**全权限**句柄（任何进程都会持有自己令牌的全权限 Handle，这是 Windows 进程创建时的标准行为）。
+
+3. **复制句柄**：用 `NtDuplicateObject` 把这个句柄从 TI 进程复制到当前进程，指定目标 Handle 需要 `TOKEN_DUPLICATE` 访问权限。
+
+### 为什么能绕过 DACL
+
+`NtDuplicateObject` 复制句柄时，内核对源 Handle 和目标 Handle 的访问权限检查与 `OpenProcessToken` 不同。源 Handle 已经在 TI 进程中存在，是全权限的。`NtDuplicateObject` 只检查调用方是否有 `PROCESS_DUP_HANDLE` 权限（SeDebugPrivilege 保证有），不再检查令牌 DACL。
+
+### 依赖的未文档化 API
+
+- `NtQuerySystemInformation`（ntdll.dll，Info Class 16）
+- `SystemHandleInformation` 结构体布局（未被 Microsoft 正式文档化）
+- `SYSTEM_HANDLE_TABLE_ENTRY_INFO_EX` 结构体
+- `NtDuplicateObject`
+
+### 优势与劣势
+
+| 优势 | 劣势 |
+|------|------|
+| 不需要 `SeImpersonatePrivilege` | 代码量大（400-500 行 + 多个结构体） |
+| 不需要 `LockOSThread` | 依赖未文档化 API，跨版本有风险 |
+| | 枚举所有句柄，性能开销大 |
+
+---
+
+## 本项目的方案：SYSTEM 模拟
+
+### 原理
+
+不直接打开 TI 令牌，而是**临时变成 SYSTEM 身份**，以 SYSTEM 的 DACL 通过 TI 令牌的访问检查。
+
+1. 找到 `winlogon.exe`（非 PPL 的 SYSTEM 进程）
+2. 从 winlogon 获取 SYSTEM 令牌（管理员对其有 `TOKEN_DUPLICATE`）
+3. 用 `ImpersonateLoggedOnUser` 让当前线程临时变成 SYSTEM
+4. 以 SYSTEM 身份打开 TI 令牌（TI 的 DACL 给 SYSTEM 全部权限）
+5. 复制并使用 TI 令牌
+6. 恢复为管理员身份
+
+### 为什么选 winlogon.exe
+
+winlogon.exe 是 Windows 登录进程，满足以下条件：
+- **始终运行**：从 XP 到 11 未变
+- **不是 PPL**：SeDebugPrivilege 能拿到完整句柄
+- **令牌 DACL 开放**：管理员对其有 `TOKEN_DUPLICATE` 权限
+
+### 综合对比
+
+| 维度 | PowerRun / NSudo | OptiWin |
+|------|:----------------:|:-------:|
+| 代码量 | ~400-500 行 + 结构体 | ~300 行单文件 |
+| 未文档化 API | NtQuerySystemInformation 内部结构 | 无 |
+| 跨版本兼容性 | 中 | 高 |
+| 前置特权 | SeDebugPrivilege | SeDebugPrivilege + SeImpersonatePrivilege |
+| 线程安全 | 不需要额外处理 | LockOSThread + Mutex |
+| 性能 | 遍历所有句柄，开销大 | 只操作 2 个进程 |
+| 可读性 | 低 | 高 |
+| 杀软检测概率 | 高（句柄枚举是恶意行为模式） | 中（模拟 API 是正常操作） |
+
+---
+
+## 完整流程图
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                     RunAsTrustedInstaller                            │
+│                     (tiMutex.Lock → 串行执行)                         │
+│                                                                     │
+│  ┌──────────────────────┐                                           │
+│  │ 1. enablePrivileges   │ 启用 SeDebugPrivilege + SeImpersonate    │
+│  └──────────┬───────────┘                                           │
+│             │                                                       │
+│  ┌──────────▼───────────┐                                           │
+│  │ 2. startTrustedInsta- │ OpenSCManager(SC_MANAGER_CONNECT)        │
+│  │    llerService        │ OpenService(START|QUERY_STATUS)           │
+│  │                       │ StartService → 轮询 findProcessByName    │
+│  └──────────┬───────────┘                                           │
+│             │                                                       │
+│  ┌──────────▼───────────┐                                           │
+│  │ 3. getTokenViaImpersonation (核心)                               │
+│  │   a. find winlogon.exe │ 非 PPL 的 SYSTEM 进程                    │
+│  │   b. Get SYSTEM token  │ OpenProcessToken(TOKEN_QUERY|DUPLICATE)  │
+│  │   c. DuplicateTokenEx  │ → SecurityImpersonation → Primary        │
+│  │   d. LockOSThread      │ 防止 goroutine 被调度器迁移               │
+│  │   e. ImpersonateLogged │ 当前线程 → SYSTEM                        │
+│  │      OnUser            │                                           │
+│  │   f. Open TI token     │ 以 SYSTEM → TOKEN_ALL_ACCESS             │
+│  │   g. RevertToSelf      │ 恢复管理员身份                             │
+│  └──────────┬───────────┘                                           │
+│             │                                                       │
+│  ┌──────────▼───────────┐                                           │
+│  │ 4. DuplicateTokenEx   │ TI 令牌 → Primary 主令牌                   │
+│  └──────────┬───────────┘                                           │
+│             │                                                       │
+│  ┌──────────▼───────────┐                                           │
+│  │ 5. createProcessWithT │ CreateProcessWithTokenW(CREATE_NO_WINDOW) │
+│  │    oken               │ WaitForSingleObject → GetExitCodeProcess  │
+│  └──────────────────────┘                                           │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 五步详解
+
+### 步骤 1：启用特权（`enablePrivileges`）
+
+在当前进程的令牌中激活 `SeDebugPrivilege` 和 `SeImpersonatePrivilege`。
+
+**需要的 API：**
+- `OpenProcessToken(CurrentProcess)` — 打开当前进程的令牌
+- `LookupPrivilegeValue` — 查找特权名称对应的 LUID
+- `AdjustTokenPrivileges` — 激活指定特权
+
+**为什么需要 SeDebugPrivilege：** 后续 `OpenProcess` 需要打开 SYSTEM 进程，管理员默认无法打开 SYSTEM 进程的完整句柄。
+
+**为什么需要 SeImpersonatePrivilege：** `CreateProcessWithTokenW` 的 MSDN 文档明确要求调用方持有此特权。管理员提权后**有**但**未激活**，必须用 `AdjustTokenPrivileges` 启用。
+
+**验证：** 启用后用 `GetTokenInformation(TokenPrivileges)` + `AllPrivileges()` 查询令牌，遍历验证两个特权的 `SE_PRIVILEGE_ENABLED` 属性位。
+
+### 步骤 2：启动 TI 服务（`startTrustedInstallerService`）
+
+**需要的 API：**
+- `OpenSCManager(SC_MANAGER_CONNECT)` — 连接服务控制管理器
+- `OpenService(SERVICE_START | SERVICE_QUERY_STATUS)` — 打开 TrustedInstaller 服务
+- `StartService` — 启动服务
+
+**为什么请求最小权限：** Go 的 `mgr.OpenService` 内部请求 `SERVICE_ALL_ACCESS`，但 TI 服务的 DACL 拒绝。改用 `SERVICE_START | SERVICE_QUERY_STATUS` 后通过。
+
+**PID 获取：** `CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS)` 枚举所有进程，匹配 `TrustedInstaller.exe`。轮询 2 秒等待进程出现。
+
+### 步骤 3：SYSTEM 模拟获取 TI 令牌（`getTokenViaImpersonation`）
+
+核心步骤，分 7 个子步骤：
+
+#### 3a. 找到 winlogon.exe
+
+非 PPL 的 SYSTEM 进程，管理员对其有 `TOKEN_DUPLICATE` 权限。
+
+#### 3b. 获取 SYSTEM 令牌
+
+```go
+hWin := OpenProcess(PROCESS_QUERY_INFORMATION, winPID)
+OpenProcessToken(hWin, TOKEN_QUERY | TOKEN_DUPLICATE, &hSysToken)
+```
+
+#### 3c. 复制为一级令牌
+
+```go
+DuplicateTokenEx(hSysToken, MAXIMUM_ALLOWED, nil,
+    SecurityImpersonation, TokenPrimary, &sysPrimary)
+```
+
+`ImpersonateLoggedOnUser` 要求 Primary 令牌。
+
+#### 3d. 锁定 OS 线程
+
+```go
+runtime.LockOSThread()
+defer runtime.UnlockOSThread()
+```
+
+#### 3e. 模拟为 SYSTEM
+
+```go
+ImpersonateLoggedOnUser(sysPrimary)
+```
+
+当前线程的所有后续访问检查都以 SYSTEM 身份进行。
+
+#### 3f. 以 SYSTEM 身份打开 TI 令牌
+
+```go
+hTI := OpenProcess(PROCESS_QUERY_INFORMATION, tiPID)
+OpenProcessToken(hTI, TOKEN_QUERY | TOKEN_DUPLICATE | TOKEN_ASSIGN_PRIMARY, &hTIToken)
+```
+
+此刻当前线程是 SYSTEM，TI 令牌 DACL 给 SYSTEM 全部权限。
+
+#### 3g. 恢复管理员身份
+
+```go
+defer windows.RevertToSelf()
+```
+
+### 步骤 4：复制为主令牌
+
+```go
+DuplicateTokenEx(tiToken, MAXIMUM_ALLOWED, &SecurityAttributes{},
+    SecurityImpersonation, TokenPrimary, &dupToken)
+```
+
+`CreateProcessWithTokenW` 要求 Primary 令牌。
+
+### 步骤 5：创建进程
+
+```go
+CreateProcessWithTokenW(dupToken, 0, 0, cmdLine, CREATE_NO_WINDOW, ...)
+WaitForSingleObject(pi.Process, INFINITE)
+GetExitCodeProcess(pi.Process, &exitCode)
+```
+
+**为什么用 `CreateProcessWithTokenW` 不用 `CreateProcessAsUser`：**
+
+| | `CreateProcessAsUser` | `CreateProcessWithTokenW` |
+|--|--|--|
+| 所需特权 | `SeTcbPrivilege`（管理员**没有**） | `SeImpersonatePrivilege`（管理员有） |
+| Session 关联 | 调用方自己设（也需要 `SeTcbPrivilege`） | seclogon 服务自动处理 |
+
+---
+
+## 线程安全
+
+### `LockOSThread` — 为什么需要
+
+Go 使用 M:N 调度——多个 goroutine（G）映射到少量 OS 线程（M）。调度器可以在任意时刻将 G 从一个 M 迁移到另一个 M。
+
+`ImpersonateLoggedOnUser` 改变的是**当前线程**的 TEB 中的模拟令牌。G 被迁移到另一个 M 后，新的 M 没有模拟令牌。
+
+```
+无 LockOSThread:
+  G1 在 M1 上: ImpersonateLoggedOnUser → M1 变 SYSTEM
+  G1 在 M1 上: (调度器迁移 → G1 到 M2)
+  G1 在 M2 上: OpenProcessToken → M2 是 Admin → ❌ Access denied
+
+有 LockOSThread:
+  G1 在 M1 上: LockOSThread → G1 绑定 M1
+  G1 在 M1 上: ImpersonateLoggedOnUser → M1 变 SYSTEM
+  G1 在 M1 上: OpenProcessToken → M1 是 SYSTEM → ✅
+  G1 在 M1 上: UnlockOSThread → 解除绑定
+```
+
+C/C++ 使用 1:1 线程模型，不存在这个问题。
+
+### `Mutex` — 为什么需要
+
+`ImpersonateLoggedOnUser` 是线程级操作。两个 goroutine 并发进入模拟流程时，共享同一批 M，互相干扰：
+
+```
+M1 上依次执行:
+  G1: ImpersonateLoggedOnUser(SYSTEM)  → M1 变 SYSTEM
+  G2: ImpersonateLoggedOnUser(SYSTEM)  → 干扰 G1 的状态
+  G1: OpenProcessToken(TI)             ← 读到 G2 干扰后的状态
+  G2: RevertToSelf                     ← G1 的模拟被提前恢复
+  G1: OpenProcessToken(TI)             ← M1 已是 Admin → ❌
+```
+
+`sync.Mutex` 确保并发调用串行执行。对实际使用没有效率影响——OptiWin 的调用是 UI 触发的脚本执行（秒级操作），串行化不影响体验。
+
+---
+
+## 兼容性
+
+### Windows 版本
+
+| API | 最低版本 | 风险 |
+|-----|---------|------|
+| `OpenProcess` / `OpenProcessToken` | XP | ✅ |
+| `DuplicateTokenEx` | 2000 | ✅ |
+| `ImpersonateLoggedOnUser` / `RevertToSelf` | XP | ✅ |
+| `CreateProcessWithTokenW` | Vista | ✅ |
+| `AdjustTokenPrivileges` | 2000 | ✅ |
+
+**Windows Vista+ 全部兼容。** 全部文档化 API。
+
+### winlogon.exe
+
+- 始终运行，非 PPL，令牌 DACL 开放
+- 未来若被设为 PPL，换用 `services.exe` 等非 PPL SYSTEM 进程即可
+
+---
+
+## 安全
+
+### 令牌泄漏
+
+所有句柄通过 `defer Close()` 释放，模拟通过 `defer RevertToSelf()` 恢复，线程锁定通过 `defer UnlockOSThread()` 解除。无泄漏风险。
+
+### 权限提升
+
+| 场景 | 结果 |
+|------|------|
+| 普通用户 | ❌ 无 SeDebugPrivilege |
+| 管理员未提权 | ❌ 同上 |
+| 管理员已提权 | ✅ 正常（预期行为） |
+
+### EDR/杀软检测
+
+| 行为 | 检测概率 |
+|------|:-------:|
+| `ImpersonateLoggedOnUser` | 中 |
+| `CreateProcessWithTokenW` | 中 |
+| NtQuerySystemInformation（句柄枚举） | **高**（Mimikatz 常用，被列为重点监控） |
+
+本项目比 PowerRun/NSudo 更不容易被检测。
+
+---
+
+## 踩过的坑
+
+### 1. SCM 拒绝 ALL_ACCESS
+
+```
+报错: EnsureTrustedInstallerRunning: Access is denied
+根因: Go 的 mgr.OpenService 请求 SERVICE_ALL_ACCESS，TI 服务 DACL 拒绝
+修复: 绕过 Go 包，直接调 windows.OpenService(SERVICE_START | SERVICE_QUERY_STATUS)
+```
+
+### 2. OpenProcessToken 拒绝 TOKEN_DUPLICATE
+
+```
+报错: getProcessToken: OpenProcessToken: Access is denied
+根因: TI 令牌 DACL 给 Administrators 只授予 TOKEN_QUERY，不授予 TOKEN_DUPLICATE
+修复: 用 SYSTEM 模拟（ImpersonateLoggedOnUser），SYSTEM 有 TOKEN_DUPLICATE
+```
+
+### 3. DuplicateHandle 升级权限失败
+
+```
+报错: getProcessToken: DuplicateHandle: Access is denied
+根因: DuplicateHandle 目标权限也受令牌 DACL 检查
+修复: 同 2，用 SYSTEM 模拟
+```
+
+### 4. AdjustTokenPrivileges 静默失败
+
+```
+报错: 无（返回 nil，但特权未启用）
+根因: Go 包装器只检查返回值，不检查 GetLastError 的 ERROR_NOT_ALL_ASSIGNED
+修复: 调用 GetTokenInformation + AllPrivileges() 主动查询验证
+```
+
+### 5. EnableDebugPrivilege 无输出 panic
+
+```
+报错: 无（Wails 吞掉 panic）
+根因: tp.Privileges[i] 数组越界（[1] 固定大小，管理员有 10+ 特权）
+修复: 用 tp.AllPrivileges() 创建正确长度的切片
+```
+
+### 6. SetTokenInformation 需要 SeTcbPrivilege
+
+```
+报错: SetTokenInformation: Access is denied
+根因: 管理员没有 SeTcbPrivilege（只有 SYSTEM 有）
+修复: 改用 CreateProcessWithTokenW（seclogon 服务自动处理 session 关联）
+```
+
+### 7. CreateProcessAsUser 需要 SeTcbPrivilege
+
+```
+报错: CreateProcessAsUser: Access is denied
+根因: 管理员没有 SeTcbPrivilege
+修复: 改用 CreateProcessWithTokenW（只需 SeImpersonatePrivilege）
+```
+
+### 8. 进程成功但脚本无输出
+
+```
+报错: 无（SuperExecute 返回 true，但脚本没执行）
+根因: WaitForSingleObject / GetExitCodeProcess 返回值被忽略，exitCode 保持 0，误判成功
+修复: 加返回值检查 + 退出码检查
+```
+
+---
+
+## 代码结构
+
+```
+tilauncher/
+└── ti.go    (~300 行，单文件)
+    ├── 常量定义（特权 LUID + 令牌访问权限常量）
+    ├── DLL 变量（advapi32.dll 的两个手动加载函数）
+    ├── tiMutex（sync.Mutex，串行化执行）
+    ├── RunAsTrustedInstaller          — 唯一公开入口
+    ├── enablePrivileges               — 启用 SeDebug + SeImpersonate
+    ├── startTrustedInstallerService   — 启动 TI 服务，获取 PID
+    ├── findProcessByName              — 枚举进程快照查找 PID
+    ├── getTokenViaImpersonation       — SYSTEM 模拟获取 TI 令牌
+    ├── buildCommandLine               — exec.Cmd → 命令行字符串
+    ├── createProcessWithToken         — CreateProcessWithTokenW + 等待
+    └── errnoErr                       — syscall.Errno → error
+```
+
+## 调用方
+
+```go
+cmd := exec.Command("powershell.exe", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", scriptPath)
+err := tilauncher.RunAsTrustedInstaller(cmd)
+```
