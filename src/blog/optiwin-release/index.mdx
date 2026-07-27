@@ -108,15 +108,24 @@ OptiWin 是一款适用于 Windows 系统的个性化调整工具箱，基于 [m
 ## 更新日志
 
 ### v1.5.1 (2026-07-27)
-- TrustedInstaller 执行引擎重写：移除外部 PowerRun.exe 依赖，改用原生 Go 实现，通过 SYSTEM 模拟获取 TI 令牌
-- 脚本执行改为 `-EncodedCommand` 方式，不再写入本地临时文件，消除临时文件泄漏风险
-- `ExecuteFile` / `SuperExecuteFile` 方法：支持直接执行指定路径的 PS1 脚本（适用于超大脚本）
-- IFEO 输入校验：前端与后端同步验证 exe 名称格式、系统进程黑名单、调试器路径合法性
-- 进程名匹配改为路径验证（`QueryFullProcessImageName`）防止同名进程欺骗
+
+- **TrustedInstaller 执行引擎重写**：移除外部 PowerRun.exe 依赖，改用原生 Go 实现，通过 SYSTEM 模拟（`ImpersonateLoggedOnUser`）获取 TI 令牌，全部使用文档化 Win32 API
+- **脚本执行架构重构**：`Execute` / `SuperExecute` 改为写入临时文件 + `-File` 模式执行（解决 `-EncodedCommand` 在 TI 进程下命令行截断问题）
+- 新增 `ExecuteString` / `SuperExecuteString`：支持 `-EncodedCommand` 模式执行短脚本字符串
+- 临时文件安全处理：写入后设置**隐藏 + 只读**属性，执行完毕延迟 1 秒自动清理
+- 脚本资源迁移：`ps1/` 目录脚本内嵌至 `scriptmgr/` 模块，通过 `GetScriptBytes` 按需加载
+- Game Bar / Task Manager 脚本内联化：短脚本直接写入 Go 代码，消除外部文件依赖
+- IFEO 输入校验增强：前端与后端同步验证 exe 名称格式、系统进程黑名单、调试器路径合法性（支持环境变量路径 `%windir%`、禁止 UNC 路径、路径穿越）
+- 进程名匹配改为路径验证：`findSystemProcess` + `QueryFullProcessImageName` 防止同名进程欺骗
 - `buildCommandLine` 使用 `syscall.EscapeArg` 正确处理命令行引号
 - `GetExitCodeProcess` 退出码检查，脚本执行失败时返回明确错误
 - 删除 PowerRun.exe 嵌入依赖，减小打包体积
-- Vite 构建配置优化（target=chrome120、chunk 分割、cssCodeSplit=false）
+- Vite 构建配置优化：target=chrome120、chunk 分割、cssCodeSplit=false
+- `ExecuteFile` / `SuperExecuteFile` 方法（功能合并至 `Execute` / `SuperExecute`）
+- `utils/scripts.go` 全局脚本变量（替换为 `scriptmgr` 模块）
+- `ps1/` 目录嵌入脚本（迁移至 `scriptmgr/scripts/`）
+- 启动时临时目录创建/清理逻辑（改为单文件按需创建）
+
 
 ### v1.5.0 (2026-07-27)
 - 新增 IFEO 镜像劫持管理：查看、添加、删除 IFEO 条目，支持系统进程黑名单
