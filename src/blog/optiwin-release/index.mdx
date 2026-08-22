@@ -1,7 +1,7 @@
 ---
-title: "OptiWin v1.5.2 发布：TrustedInstaller 引擎重写与多项功能新增"
-description: "OptiWin 是一款适用于 Windows 系统的个性化调整工具箱，基于 meetrevision/revision-tool 二次开发。v1.5.x 版本带来 TrustedInstaller 执行引擎原生化重写、IFEO 镜像劫持管理、APPX 应用管理、DNS 切换等重大更新。"
-date: 2026-07-27
+title: "OptiWin v1.6.0 发布：设计理念确立与多项功能更新"
+description: "OptiWin 是一款适用于 Windows 系统的个性化调整工具箱，秉持「安全、可逆、克制」的设计理念。采用 Go + Wails 后端与 Vue 3 + Naive UI 前端技术栈，提供 Defender 实时保护管理、小组件开关、Edge 卸载与安装等丰富功能。"
+date: 2026-08-22
 tags: ["windows", "optimization", "release", "utility"]
 draft: false
 ---
@@ -10,23 +10,34 @@ import Callout from '@/components/Callout.astro'
 
 ## 项目简介
 
-OptiWin 是一款适用于 Windows 系统的个性化调整工具箱，基于 [meetrevision/revision-tool](https://github.com/meetrevision/revision-tool) 二次开发。采用 Go + Wails 后端与 Vue 3 + Naive UI 前端技术栈，提供现代化的界面和便捷的系统优化体验。
+OptiWin 是一款适用于 Windows 系统的个性化调整工具箱，采用 Go + Wails 后端与 Vue 3 + Naive UI 前端技术栈，提供现代化的界面和便捷的系统优化体验。
+
+## 设计理念
+
+> **安全、可逆、克制**——这是 OptiWin 一切功能的出发点。
+
+- **所有修改都可后悔**：每一项操作都提供对应的恢复功能，不做破坏性修改，不删除系统组件，绝不留下无法回头的状态。
+- **不做激进操作**：不采用强制终止、删除系统文件、劫持关键驱动等高风险手段。系统稳定性与数据安全永远优先于"极致优化"。
+- **Windows Defender 不提供完全禁用**：Defender 的实时保护与核心服务受到 Windows 自身的篡改防护（Tamper Protection）与内核驱动保护，强行禁用需要破坏性手段，与项目理念相悖。
+- **明确不建议破坏安全链路**：例如 ELAM 启动驱动（WdBoot），在部分配备生物识别（指纹/人脸）的笔记本上，禁用会导致 Windows Hello 失效。OptiWin 保留此类信任链组件不动。
+
+> 一句话总结：**你可以放心地调整每一项设置，因为每一项都能回到原点。**
 
 ## 版本信息
 
 | 项目 | 详情 |
 |------|------|
-| **版本号** | v1.5.2 |
-| **发布日期** | 2026年7月27日 |
+| **版本号** | v1.6.0 |
+| **发布日期** | 2026年8月22日 |
 | **发布类型** | 稳定版 |
-| **开源协议** | GPL-3.0 |
+| **开源协议** | MIT |
 
 ## 下载
 
 <Callout type="info">
-**下载 OptiWin v1.5.2**
+**下载 OptiWin v1.6.0**
 
-- **下载链接**: [下载 OptiWin-v1.5.2.exe](/asset/OptiWin-v1.5.2.exe)
+- **下载链接**: [下载 OptiWin-v1.6.0.exe](/asset/OptiWin-v1.6.0.exe)
 - **文件大小**: 约 5MB（Windows x64）
 - **系统要求**: Windows 10/11 x64
 </Callout>
@@ -42,138 +53,14 @@ OptiWin 是一款适用于 Windows 系统的个性化调整工具箱，基于 [m
   <img src="/asset/optiwin-screenshots/update.png" alt="更新" class="rounded-lg border shadow-sm hover:shadow-md transition-shadow" />
 </div>
 
-## 功能模块
+## 功能
 
-### 🏠 首页
-- 项目信息展示
-- 系统信息实时显示（OS / CPU / 内存 / IP）
-
-### 🔒 安全
-- Windows Defender 引擎禁用/服务禁用/恢复
-- UAC 设置管理
-- VBS（虚拟化安全）开关
-- 内存完整性控制
-
-### ⚡ 性能
-- 电源计划优化
-- C-State 控制
-- Superfetch 管理
-- 内存压缩开关
-- 全屏优化设置
-- 窗口优化调整
-- MPO（多平面优化）控制
-- 着色器缓存管理
-- Xbox 服务（Game Bar）独立控制
-
-### 🎨 个性化
-- 通知系统管理
-- 气球通知开关
-- 边缘滑动设置
-- 上下文菜单自定义
-- Explorer 主页和图库配置
-- 快捷方式外观调整
-- Win11 新版任务管理器开关
-
-### 🛠️ 实用工具
-- 休眠功能管理
-- 快速启动开关
-- 照片查看器恢复
-- Edge 浏览器卸载
-- WebView2 管理
-- 安全模式启动
-- 进入 BIOS 快捷方式
-- 系统遥测与推广阻止（一键阻止 Windows 遥测进程）
-
-### 🛡️ IFEO 镜像劫持管理（v1.5.0 新增）
-- 查看、添加、删除 IFEO 条目
-- 系统进程黑名单保护
-
-### 📦 APPX 应用管理（v1.5.0 新增）
-- 查看已安装 APPX 应用
-- 支持卸载、搜索过滤
-- 用户应用 / 系统应用分类
-
-### 🌐 DNS 切换（v1.5.0 新增）
-- 一键切换 DNS 服务器（ISP 默认、阿里、腾讯、百度、Google、Cloudflare、Quad9）
-- 当前 DNS 信息显示（网卡名称、主 DNS、副 DNS）
-
-### 🔄 更新
-- 证书更新管理
-- KGL 更新控制
-- 暂停更新功能
-- 隐藏更新页面
-- 驱动更新策略
-- 更新通道切换
-
-## 更新日志
-
-### v1.5.2 (2026-07-27)
-
-- 修复移除快捷方式小箭头开关状态判断错误的问题
-
-### v1.5.1 (2026-07-27)
-
-- **TrustedInstaller 执行引擎重写**：移除外部 PowerRun.exe 依赖，改用原生 Go 实现，通过 SYSTEM 模拟（`ImpersonateLoggedOnUser`）获取 TI 令牌，全部使用文档化 Win32 API
-- **脚本执行架构重构**：`Execute` / `SuperExecute` 改为写入临时文件 + `-File` 模式执行（解决 `-EncodedCommand` 在 TI 进程下命令行截断问题）
-- 新增 `ExecuteString` / `SuperExecuteString`：支持 `-EncodedCommand` 模式执行短脚本字符串
-- 临时文件安全处理：写入后设置**隐藏 + 只读**属性，执行完毕延迟 1 秒自动清理
-- 脚本资源迁移：`ps1/` 目录脚本内嵌至 `scriptmgr/` 模块，通过 `GetScriptBytes` 按需加载
-- Game Bar / Task Manager 脚本内联化：短脚本直接写入 Go 代码，消除外部文件依赖
-- IFEO 输入校验增强：前端与后端同步验证 exe 名称格式、系统进程黑名单、调试器路径合法性（支持环境变量路径 `%windir%`、禁止 UNC 路径、路径穿越）
-- 进程名匹配改为路径验证：`findSystemProcess` + `QueryFullProcessImageName` 防止同名进程欺骗
-- `buildCommandLine` 使用 `syscall.EscapeArg` 正确处理命令行引号
-- `GetExitCodeProcess` 退出码检查，脚本执行失败时返回明确错误
-- 删除 PowerRun.exe 嵌入依赖，减小打包体积
-- Vite 构建配置优化：target=chrome120、chunk 分割、cssCodeSplit=false
-- `ExecuteFile` / `SuperExecuteFile` 方法（功能合并至 `Execute` / `SuperExecute`）
-- `utils/scripts.go` 全局脚本变量（替换为 `scriptmgr` 模块）
-- `ps1/` 目录嵌入脚本（迁移至 `scriptmgr/scripts/`）
-- 启动时临时目录创建/清理逻辑（改为单文件按需创建）
-
-
-### v1.5.0 (2026-07-27)
-- 新增 IFEO 镜像劫持管理：查看、添加、删除 IFEO 条目，支持系统进程黑名单
-- 新增 APPX 应用管理：查看已安装应用、支持卸载、搜索过滤、用户/系统应用分类
-- 新增 DNS 切换：一键切换 DNS 服务器，支持 ISP 默认、阿里、腾讯、百度、Google、Cloudflare、Quad9
-- 新增当前 DNS 信息显示（网卡名称、主 DNS、副 DNS）
-- 新增系统遥测与推广阻止（一键阻止 Windows 遥测进程）
-- 移除 PowerRun.exe 外部依赖（已完全替换为原生 Go 实现）
-- 移除 DNS over HTTPS (DoH) 功能（已简化为基础 DNS 切换）
-- 移除临时文件写入/删除逻辑（改为 `-EncodedCommand` 不落盘执行）
-
-### v1.4.2 (2026-07-23)
-- 更新了版本号
-- 修复图标缓存无法重建的问题
-
-### v1.4.1 (2026-07-23)
-- Game Bar 从开关改为独立的卸载/安装按钮，执行时弹出 WaitModal
-- Defender 禁用/恢复重构为 PS1 脚本，减少 Go 冗余代码
-
-### v1.4.0 (2026-07-22)
-- 新增 Win11 任务管理器切换功能
-- 新增 Game Bar 独立开关
-- 全局图标支持（Lucide 图标库）
-- 优化 UI 交互体验
-
-### v1.3.3 (2026-07-22)
-- 修复 Windows 安全中心无法正常开关
-- 修复卸载 Edge 导致 WebView 不可用
-
-### v1.3.2 (2026-07-21)
-- Bug 修复与稳定性改进
-
-### v1.3 (2026-07-21)
-- 布局优化，新增多语言适配
-- 修复功能性 Bug
-
-### v1.2 (2026-07-20)
-- 完整功能发布，包含安全、性能、个性化、实用工具和更新管理
-
-### v1.1.1 (2026-07-20)
-- 性能优化与 Bug 修复
-
-### v1.0 (2026-07-20)
-- 首次正式发布
+- **首页** — 项目信息 + 系统信息（OS / CPU / 内存 / IP）+ 鸣谢列表
+- **安全** — Defender 实时保护管理 / UAC / VBS / 内存完整性 / IFEO 镜像劫持管理 / DNS 切换 / 系统遥测阻止
+- **性能** — 电源计划 / C-State / Superfetch / 内存压缩 / 全屏优化 / 窗口优化 / MPO / 着色器缓存 / Xbox 服务（Game Bar）
+- **个性化** — 通知 / 气球通知 / 边缘滑动 / 上下文菜单 / Explorer 主页和图库 / 快捷方式外观 / Win11 新版任务管理器开关 / Windows 小组件开关
+- **实用工具** — 休眠 / 快速启动 / 照片查看器 / Edge 卸载与安装 / WebView2 / 安全模式 / 进入 BIOS
+- **更新** — 证书更新 / KGL 更新 / 暂停更新 / 隐藏更新页面 / 驱动更新策略 / 更新通道切换 / 多源回退检测
 
 ## 技术栈
 
@@ -182,12 +69,10 @@ OptiWin 是一款适用于 Windows 系统的个性化调整工具箱，基于 [m
 | 后端 | Go + Wails |
 | 前端 | Vue 3 + Naive UI + Lucide |
 | 注册表 | golang.org/x/sys/windows/registry |
-| 脚本 | PowerShell 5.1+ |
 
 ## 鸣谢
 
-- **[PowerRun](https://www.sordum.org/81912/run-as-trustedinstaller-program-v1-6/)** — 早期版本使用的 TrustedInstaller 提权工具（v1.5.0 起已替换为原生 Go 实现）
-- **[ionuttbara/windows-defender-remover](https://github.com/ionuttbara/windows-defender-remover)** — Defender 禁用方案参考
+- **[meetrevision/revision-tool](https://github.com/meetrevision/revision-tool)** — 本项目灵感来源
 - **[Lucide](https://lucide.dev/)** — 开源图标库
 
 ## 相关链接
@@ -197,7 +82,7 @@ OptiWin 是一款适用于 Windows 系统的个性化调整工具箱，基于 [m
 
 - **GitHub 仓库**: [YouRan4/OptiWin](https://github.com/YouRan4/OptiWin)
 - **提交问题**: [GitHub Issues](https://github.com/YouRan4/OptiWin/issues)
-- **开源协议**: [GPL-3.0](https://github.com/YouRan4/OptiWin/blob/master/LICENSE)
+- **开源协议**: [MIT](https://github.com/YouRan4/OptiWin/blob/master/LICENSE)
 </Callout>
 
 ---
